@@ -1,0 +1,6 @@
+{
+  "name": "Pomegran Account – Agent Hub",
+  "description": "The central training and practice portal for Pomegran Account agents across CSR, TSR, Sales, Activation, and Canquest lines of business.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
