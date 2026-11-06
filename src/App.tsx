@@ -9,7 +9,8 @@
 import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { HomeView } from './components/HomeView';
-import { LobWorkspaceView, ModuleType } from './components/LobWorkspaceView';
+import { HotTopicsQueueSelectView } from './components/HotTopicsQueueSelectView';
+import { ModuleType } from './components/LobWorkspaceView';
 import { HotTopicsModule } from './components/HotTopicsModule';
 import { ScenariosModule } from './components/ScenariosModule';
 import { SoftSkillsModule } from './components/SoftSkillsModule';
@@ -29,6 +30,7 @@ import { SearchResultItem } from './utils/search';
 export default function App() {
   const [currentLob, setCurrentLob] = useState<LobConfig | null>(null);
   const [currentModule, setCurrentModule] = useState<ModuleType | null>(null);
+  const [isHotTopicsSelectActive, setIsHotTopicsSelectActive] = useState<boolean>(false);
   const [targetItemId, setTargetItemId] = useState<string | null>(null);
   const [lastLobId, setLastLobIdState] = useState<LobId | null>(null);
 
@@ -43,47 +45,64 @@ export default function App() {
     }
   }, []);
 
-  const handleSelectLob = (lob: LobConfig) => {
+  const handleSelectLob = (lob: LobConfig, module: ModuleType | null = null) => {
     setCurrentLob(lob);
-    setCurrentModule(null);
+    setCurrentModule(module);
+    setIsHotTopicsSelectActive(false);
     setTargetItemId(null);
     setLastLob(lob.id);
     setLastLobIdState(lob.id);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleOpenHotTopicsSelect = () => {
+    setCurrentLob(null);
+    setCurrentModule(null);
+    setIsHotTopicsSelectActive(true);
+    setTargetItemId(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleOpenModuleFromHome = (module: ModuleType, preferredLobId?: LobId) => {
+    const targetLob =
+      (preferredLobId && LOBS.find((l) => l.id === preferredLobId)) ||
+      currentLob ||
+      (lastLobId && LOBS.find((l) => l.id === lastLobId)) ||
+      LOBS[0];
+
+    setCurrentLob(targetLob);
+    setCurrentModule(module);
+    setIsHotTopicsSelectActive(false);
+    setTargetItemId(null);
+    setLastLob(targetLob.id);
+    setLastLobIdState(targetLob.id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSwitchLob = (newLob: LobConfig) => {
+    setCurrentLob(newLob);
+    setLastLob(newLob.id);
+    setLastLobIdState(newLob.id);
+    setTargetItemId(null);
+  };
+
   const handleNavigateHome = () => {
     setCurrentLob(null);
     setCurrentModule(null);
-    setTargetItemId(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleSelectModule = (module: ModuleType) => {
-    setTargetItemId(null);
-    if (module === 'ask-trainer') {
-      setCurrentModule('ask-trainer');
-    } else {
-      setCurrentModule(module);
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleBackToLobWorkspace = () => {
-    setCurrentModule(null);
+    setIsHotTopicsSelectActive(false);
     setTargetItemId(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   /**
-   * Universal Jump Handler for both Home Global Search and Inside-LOB Search
+   * Universal Jump Handler for both Home Global Search and Inside-Module Search
    */
   const handleSelectSearchResult = (item: SearchResultItem) => {
     // 1. If clicking a Line of Business
     if (item.type === 'lob' && item.lobId) {
       const matchLob = LOBS.find((l) => l.id === item.lobId);
       if (matchLob) {
-        handleSelectLob(matchLob);
+        handleSelectLob(matchLob, 'hot-topics');
       }
       return;
     }
@@ -104,6 +123,7 @@ export default function App() {
 
     // 3. Set module and target item ID
     if (item.moduleId) {
+      setIsHotTopicsSelectActive(false);
       setCurrentModule(item.moduleId);
       setTargetItemId(item.targetId || null);
     }
@@ -112,9 +132,12 @@ export default function App() {
   };
 
   const getModuleTitle = (m: ModuleType | null): string | undefined => {
+    if (isHotTopicsSelectActive) {
+      return 'Hot Topics – Queue Directory';
+    }
     switch (m) {
       case 'hot-topics':
-        return 'Hot Topics';
+        return currentLob ? `Hot Topics (${currentLob.name})` : 'Hot Topics';
       case 'scenarios':
         return 'Real Customer Scenarios';
       case 'soft-skills':
@@ -137,90 +160,99 @@ export default function App() {
         onOpenTrainer={() => setIsTrainerModalOpen(true)}
         currentModuleTitle={getModuleTitle(currentModule)}
         onNavigateBackToLob={
-          currentModule ? handleBackToLobWorkspace : undefined
+          isHotTopicsSelectActive
+            ? handleNavigateHome
+            : currentModule === 'hot-topics'
+            ? handleOpenHotTopicsSelect
+            : currentModule
+            ? handleNavigateHome
+            : undefined
         }
       />
 
       {/* Main View Area */}
       <main className="flex-1">
-        {/* 1. Home View with Global Search */}
-        {!currentLob && (
+        {/* 1. Home View with 4 Core Pillar Boxes (Hot Topics, Real Customer Scenarios, Soft Skills, Videos) */}
+        {!currentModule && !isHotTopicsSelectActive && (
           <HomeView
             onSelectLob={handleSelectLob}
+            onOpenModule={handleOpenModuleFromHome}
+            onSelectHotTopics={handleOpenHotTopicsSelect}
             lastLobId={lastLobId}
             onOpenTrainer={() => setIsTrainerModalOpen(true)}
             onSelectSearchResult={handleSelectSearchResult}
           />
         )}
 
-        {/* 2. LOB Workspace Hub with Scoped LOB Search */}
-        {currentLob && !currentModule && (
-          <LobWorkspaceView
-            lob={currentLob}
+        {/* 1b. Dedicated Hot Topics Queue Selection Page (5 LOB boxes: CSR, TSR, Sales, Activation, Canquest side by side) */}
+        {!currentModule && isHotTopicsSelectActive && (
+          <HotTopicsQueueSelectView
+            onSelectLob={(lob) => handleSelectLob(lob, 'hot-topics')}
             onNavigateHome={handleNavigateHome}
-            onSelectModule={handleSelectModule}
-            onSelectSearchResult={handleSelectSearchResult}
           />
         )}
 
-        {/* 3. Module 1: Hot Topics */}
+        {/* 2. Module 1: Hot Topics */}
         {currentLob && currentModule === 'hot-topics' && (
           <HotTopicsModule
             lob={currentLob}
             topics={HOT_TOPICS.filter((t) => t.lobId === currentLob.id)}
-            onBackToWorkspace={handleBackToLobWorkspace}
+            onBackToWorkspace={handleNavigateHome}
+            onBackToQueueSelect={handleOpenHotTopicsSelect}
             onOpenTrainer={() => setIsTrainerModalOpen(true)}
             initialTopicId={targetItemId || undefined}
             onSelectSearchResult={handleSelectSearchResult}
+            onSwitchLob={handleSwitchLob}
           />
         )}
 
-        {/* 4. Module 2: Real Customer Scenarios */}
+        {/* 3. Module 2: Real Customer Scenarios */}
         {currentLob && currentModule === 'scenarios' && (
           <ScenariosModule
             lob={currentLob}
             scenarios={SCENARIOS.filter((s) => s.lobId === currentLob.id)}
-            onBackToWorkspace={handleBackToLobWorkspace}
+            onBackToWorkspace={handleNavigateHome}
             onOpenTrainer={() => setIsTrainerModalOpen(true)}
             initialScenarioId={targetItemId || undefined}
             onSelectSearchResult={handleSelectSearchResult}
+            onSwitchLob={handleSwitchLob}
           />
         )}
 
-        {/* 5. Module 3: Soft Skills Academy */}
+        {/* 4. Module 3: Soft Skills Academy */}
         {currentLob && currentModule === 'soft-skills' && (
           <SoftSkillsModule
             lob={currentLob}
-            onBackToWorkspace={handleBackToLobWorkspace}
+            onBackToWorkspace={handleNavigateHome}
             onOpenTrainer={() => setIsTrainerModalOpen(true)}
             initialLessonId={targetItemId || undefined}
           />
         )}
 
-        {/* 6. Module 4: Microlearning Videos */}
+        {/* 5. Module 4: Microlearning Videos */}
         {currentLob && currentModule === 'videos' && (
           <VideosModule
             lob={currentLob}
-            onBackToWorkspace={handleBackToLobWorkspace}
+            onBackToWorkspace={handleNavigateHome}
             onOpenTrainer={() => setIsTrainerModalOpen(true)}
             initialVideoId={targetItemId || undefined}
           />
         )}
 
-        {/* 7. Module 5: Ask the Trainer (Page View) */}
+        {/* 6. Module 5: Ask the Trainer (Page View) */}
         {currentLob && currentModule === 'ask-trainer' && (
           <div className="py-8">
             <div className="max-w-3xl mx-auto px-4 mb-4">
               <button
-                onClick={handleBackToLobWorkspace}
-                className="text-xs font-semibold text-stone-600 hover:text-stone-900"
+                onClick={handleNavigateHome}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-600 hover:text-stone-900 cursor-pointer"
               >
-                ← Back to {currentLob.name} Workspace
+                ← Back to Main Page
               </button>
             </div>
             <AskTrainerModule
               currentLob={currentLob}
-              onClose={handleBackToLobWorkspace}
+              onClose={handleNavigateHome}
               isModal={false}
             />
           </div>

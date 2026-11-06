@@ -1,25 +1,34 @@
 import React from 'react';
 import {
-  Headset,
-  Wrench,
-  TrendingUp,
-  Sparkles,
-  ShieldCheck,
+  Flame,
+  Users2,
+  GraduationCap,
+  Video,
   ArrowRight,
-  CheckCircle2,
-  BookOpen,
   HelpCircle,
-  Clock,
-  Sparkle,
+  Sparkles,
 } from 'lucide-react';
 import { LOBS, LobConfig, LobId, SETTINGS } from '../data/content';
-import { getQuizResults, getScenarioResults } from '../utils/storage';
 import { GlobalSearchBar } from './GlobalSearchBar';
 import { SearchResultItem } from '../utils/search';
 import { PomegranLogo } from './PomegranLogo';
 
+import hotTopicsBg from '../assets/images/box_hottopics_bg_1793033569356.jpg';
+import scenariosBg from '../assets/images/box_scenarios_bg_1793033569484.jpg';
+import softSkillsBg from '../assets/images/box_softskills_bg_1793033571209.jpg';
+import videosBg from '../assets/images/box_videos_bg_1793033571091.jpg';
+
+export type ModuleType =
+  | 'hot-topics'
+  | 'scenarios'
+  | 'soft-skills'
+  | 'videos'
+  | 'ask-trainer';
+
 interface HomeViewProps {
-  onSelectLob: (lob: LobConfig) => void;
+  onSelectLob: (lob: LobConfig, targetModule?: ModuleType) => void;
+  onOpenModule?: (module: ModuleType, preferredLobId?: LobId) => void;
+  onSelectHotTopics: () => void;
   lastLobId: LobId | null;
   onOpenTrainer: () => void;
   onSelectSearchResult: (item: SearchResultItem) => void;
@@ -27,45 +36,17 @@ interface HomeViewProps {
 
 export const HomeView: React.FC<HomeViewProps> = ({
   onSelectLob,
+  onOpenModule,
+  onSelectHotTopics,
   lastLobId,
   onOpenTrainer,
   onSelectSearchResult,
 }) => {
-  const quizResults = getQuizResults();
-  const scenarioResults = getScenarioResults();
-
-  const getLobStats = (lobId: LobId) => {
-    const passedTopics = Object.values(quizResults).filter(
-      (r) => r.lobId === lobId && r.passed
-    ).length;
-    const completedScenarios = Object.values(scenarioResults).filter(
-      (s) => s.lobId === lobId
-    ).length;
-    return { passedTopics, completedScenarios };
-  };
-
-  const getIcon = (id: LobId) => {
-    switch (id) {
-      case 'csr':
-        return <Headset className="w-7 h-7 text-[#BA3142]" />;
-      case 'tsr':
-        return <Wrench className="w-7 h-7 text-blue-700" />;
-      case 'sales':
-        return <TrendingUp className="w-7 h-7 text-emerald-700" />;
-      case 'activation':
-        return <Sparkles className="w-7 h-7 text-purple-700" />;
-      case 'canquest':
-        return <ShieldCheck className="w-7 h-7 text-amber-700" />;
-    }
-  };
-
-  const lastLob = LOBS.find((l) => l.id === lastLobId);
-
   return (
     <div className="min-h-[calc(100vh-4rem)] flex flex-col justify-between">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
         {/* Welcome Hero with Official Pomegran Brand */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-3.5 px-5 py-2.5 rounded-2xl bg-white border border-[#F4B8C1] shadow-xs mb-6">
             <PomegranLogo size="md" color="#BA1E38" />
             <span className="text-stone-300">·</span>
@@ -83,181 +64,247 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
           {/* Global Search Bar */}
           <GlobalSearchBar onSelectResult={onSelectSearchResult} />
+        </div>
 
-          {/* Quick Continue Shortcut if returning user */}
-          {lastLob && (
-            <div className="mt-4 flex justify-center">
-              <button
-                onClick={() => onSelectLob(lastLob)}
-                className="group inline-flex items-center gap-3 px-5 py-2.5 rounded-xl bg-white hover:bg-stone-50 text-stone-900 border border-stone-200/90 shadow-xs transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[#BA1E38] focus-visible:outline-hidden cursor-pointer"
-              >
-                <div
-                  className="w-3 h-3 rounded-full shrink-0 ring-2 ring-stone-200"
-                  style={{ backgroundColor: lastLob.accent.primary }}
+        {/* 4 CORE LEARNING PILLARS (Hot Topics, Real Customer Scenarios, Soft Skills Academy, Microlearning Videos) */}
+        <section className="mb-14">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6 pb-3 border-b border-stone-200">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-[#BA1E38] text-xs font-bold mb-2">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>CORE TRAINING PILLARS</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-950 tracking-tight">
+                Learning & Practice Academy
+              </h2>
+              <p className="text-sm text-stone-600 mt-1">
+                Select a learning module below to explore queue hot topics, interactive customer scenarios, soft skills lessons, and training videos.
+              </p>
+            </div>
+            <div className="text-xs text-stone-500 font-semibold bg-stone-100 px-3 py-1.5 rounded-lg shrink-0">
+              4 Core Pillars
+            </div>
+          </div>
+
+          {/* 4 Core Pillars Grid with Blurred Image Backgrounds */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* BOX 1: Hot Topics */}
+            <div
+              onClick={onSelectHotTopics}
+              className="flex flex-col justify-between bg-white rounded-2xl border border-stone-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-6 relative overflow-hidden group cursor-pointer min-h-[290px]"
+            >
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#BA1E38] z-20" />
+
+              {/* Blurred Thematic Background Image */}
+              <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
+                <img
+                  src={hotTopicsBg}
+                  alt=""
+                  aria-hidden="true"
+                  className="w-full h-full object-cover scale-105 filter blur-[2.5px] opacity-75 group-hover:opacity-90 group-hover:scale-110 transition-all duration-500 ease-out"
                 />
-                <span className="text-sm font-semibold">
-                  Continue as <span className="underline decoration-[#BA1E38]/30 underline-offset-4">{lastLob.name} ({lastLob.fullName})</span>
-                </span>
-                <ArrowRight className="w-4 h-4 text-stone-400 group-hover:text-stone-900 group-hover:translate-x-1 transition-all" />
+                <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/70 to-white/85 group-hover:from-white/70 group-hover:via-white/60 group-hover:to-white/80 transition-all duration-300" />
+              </div>
+
+              <div className="relative z-10 flex-1 flex flex-col justify-between mb-5">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-rose-50/90 text-[#BA1E38] flex items-center justify-center border border-rose-100 shadow-2xs backdrop-blur-xs group-hover:scale-105 transition-transform">
+                      <Flame className="w-6 h-6" />
+                    </div>
+                    <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-rose-50/90 text-[#BA1E38] border border-rose-200 backdrop-blur-xs shadow-2xs">
+                      5 Queues
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl font-extrabold text-stone-950 group-hover:text-[#BA1E38] transition-colors mb-1.5 drop-shadow-2xs">
+                    Hot Topics
+                  </h3>
+                  <p className="text-xs font-bold text-stone-600 uppercase tracking-wider mb-2">
+                    Current Policies & Knowledge Quizzes
+                  </p>
+                  <p className="text-sm text-stone-800 font-medium leading-relaxed drop-shadow-2xs">
+                    Queue policies, updates, and 5-question quizzes.
+                  </p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onSelectHotTopics();
+                }}
+                className="relative z-10 w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm text-white bg-[#BA1E38] hover:bg-[#9B152B] transition-colors shadow-xs cursor-pointer group-hover:shadow-md"
+              >
+                <span>Select Queue (CSR, TSR...)</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
-          )}
-        </div>
 
-        {/* 5 LOB Boxes Grid: 3 on row 1, 2 centered on row 2 (desktop) */}
-        <div className="max-w-5xl mx-auto">
-          {/* Row 1: 3 boxes */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            {LOBS.slice(0, 3).map((lob) => {
-              const stats = getLobStats(lob.id);
-              return (
-                <button
-                  key={lob.id}
-                  onClick={() => onSelectLob(lob)}
-                  className="group relative flex flex-col justify-between text-left p-6 sm:p-7 rounded-2xl bg-white border border-stone-200/90 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 focus-visible:ring-3 focus-visible:ring-[#BA1E38] focus-visible:outline-hidden cursor-pointer overflow-hidden min-h-[270px]"
-                  style={{
-                    borderTop: `4px solid ${lob.accent.primary}`,
-                  }}
-                >
-                  {/* Blurred Background Image - Clearly visible with soft focus & gentle tint for readability */}
-                  <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
-                    <img
-                      src={lob.bgImage}
-                      alt={lob.name}
-                      aria-hidden="true"
-                      className="w-full h-full object-cover scale-105 filter blur-[2.5px] opacity-75 group-hover:opacity-90 group-hover:scale-110 transition-all duration-500 ease-out"
-                    />
-                    {/* Balanced translucent scrim: lets image details and colors shine through while keeping text crisp */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/60 to-white/80 group-hover:from-white/60 group-hover:via-white/50 group-hover:to-white/70 transition-all duration-300" />
+            {/* BOX 2: Real Customer Scenarios */}
+            <div
+              onClick={() => onOpenModule?.('scenarios', lastLobId || 'csr')}
+              className="flex flex-col justify-between bg-white rounded-2xl border border-stone-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-6 relative overflow-hidden group cursor-pointer min-h-[290px]"
+            >
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-blue-600 z-20" />
+
+              {/* Blurred Thematic Background Image */}
+              <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
+                <img
+                  src={scenariosBg}
+                  alt=""
+                  aria-hidden="true"
+                  className="w-full h-full object-cover scale-105 filter blur-[2.5px] opacity-75 group-hover:opacity-90 group-hover:scale-110 transition-all duration-500 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/70 to-white/85 group-hover:from-white/70 group-hover:via-white/60 group-hover:to-white/80 transition-all duration-300" />
+              </div>
+
+              <div className="relative z-10 flex-1 flex flex-col justify-between mb-5">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-blue-50/90 text-blue-700 flex items-center justify-center border border-blue-100 shadow-2xs backdrop-blur-xs group-hover:scale-105 transition-transform">
+                      <Users2 className="w-6 h-6" />
+                    </div>
+                    <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-50/90 text-blue-700 border border-blue-200 backdrop-blur-xs shadow-2xs">
+                      15 Scenarios
+                    </span>
                   </div>
 
-                  <div className="relative z-10 flex-1">
-                    {/* Header with Icon and LOB name */}
-                    <div className="flex items-start justify-between mb-4">
-                      <div
-                        className="p-3 rounded-xl transition-all duration-200 group-hover:scale-105 shadow-xs border border-white/80 backdrop-blur-md"
-                        style={{ backgroundColor: lob.accent.light }}
-                      >
-                        {getIcon(lob.id)}
-                      </div>
-                      <span
-                        className="text-xs font-bold tracking-wider px-2.5 py-1 rounded-md uppercase backdrop-blur-md border border-white/80 shadow-xs"
-                        style={{
-                          backgroundColor: lob.accent.tagBg,
-                          color: lob.accent.text,
-                        }}
-                      >
-                        {lob.name}
-                      </span>
-                    </div>
+                  <h3 className="text-xl font-extrabold text-stone-950 group-hover:text-blue-700 transition-colors mb-1.5 drop-shadow-2xs">
+                    Real Customer Scenarios
+                  </h3>
+                  <p className="text-xs font-bold text-stone-600 uppercase tracking-wider mb-2">
+                    Branching Call Dialogue & Escalations
+                  </p>
+                  <p className="text-sm text-stone-800 font-medium leading-relaxed drop-shadow-2xs">
+                    Real call simulations and escalations with instant feedback.
+                  </p>
+                </div>
+              </div>
 
-                    <h2 className="text-xl font-extrabold text-[#191824] group-hover:text-[#BA1E38] transition-colors drop-shadow-2xs">
-                      {lob.name}
-                    </h2>
-                    <p className="text-xs font-bold text-stone-600 mb-2">
-                      {lob.fullName}
-                    </p>
-                    <p className="text-sm font-medium text-stone-800 leading-relaxed mb-6 drop-shadow-2xs">
-                      {lob.description}
-                    </p>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onOpenModule?.('scenarios', lastLobId || 'csr');
+                }}
+                className="relative z-10 w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-xs cursor-pointer group-hover:shadow-md"
+              >
+                <span>Practice Scenarios</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+
+            {/* BOX 3: Soft Skills Academy */}
+            <div
+              onClick={() => onOpenModule?.('soft-skills', lastLobId || 'csr')}
+              className="flex flex-col justify-between bg-white rounded-2xl border border-stone-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-6 relative overflow-hidden group cursor-pointer min-h-[290px]"
+            >
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-emerald-600 z-20" />
+
+              {/* Blurred Thematic Background Image */}
+              <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
+                <img
+                  src={softSkillsBg}
+                  alt=""
+                  aria-hidden="true"
+                  className="w-full h-full object-cover scale-105 filter blur-[2.5px] opacity-75 group-hover:opacity-90 group-hover:scale-110 transition-all duration-500 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/70 to-white/85 group-hover:from-white/70 group-hover:via-white/60 group-hover:to-white/80 transition-all duration-300" />
+              </div>
+
+              <div className="relative z-10 flex-1 flex flex-col justify-between mb-5">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-emerald-50/90 text-emerald-700 flex items-center justify-center border border-emerald-100 shadow-2xs backdrop-blur-xs group-hover:scale-105 transition-transform">
+                      <GraduationCap className="w-6 h-6" />
+                    </div>
+                    <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-50/90 text-emerald-700 border border-emerald-200 backdrop-blur-xs shadow-2xs">
+                      5 Master Lessons
+                    </span>
                   </div>
 
-                  {/* Footer with cue & stats */}
-                  <div className="relative z-10 pt-3 border-t border-stone-200/80 bg-white/65 -mx-6 sm:-mx-7 -mb-6 sm:-mb-7 px-6 sm:px-7 py-3 rounded-b-2xl backdrop-blur-xs flex items-center justify-between">
-                    <div className="text-xs text-stone-600 font-semibold flex items-center gap-2">
-                      {stats.passedTopics > 0 && (
-                        <span className="flex items-center gap-1 text-emerald-700 font-bold">
-                          <CheckCircle2 className="w-3.5 h-3.5" />
-                          <span>{stats.passedTopics}/3 Topics</span>
-                        </span>
-                      )}
+                  <h3 className="text-xl font-extrabold text-stone-950 group-hover:text-emerald-700 transition-colors mb-1.5 drop-shadow-2xs">
+                    Soft Skills Academy
+                  </h3>
+                  <p className="text-xs font-bold text-stone-600 uppercase tracking-wider mb-2">
+                    Human Connection & De-escalation
+                  </p>
+                  <p className="text-sm text-stone-800 font-medium leading-relaxed drop-shadow-2xs">
+                    Core people skills: de-escalation, empathy, and call control.
+                  </p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onOpenModule?.('soft-skills', lastLobId || 'csr');
+                }}
+                className="relative z-10 w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm text-white bg-emerald-600 hover:bg-emerald-700 transition-colors shadow-xs cursor-pointer group-hover:shadow-md"
+              >
+                <span>Open Soft Skills</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+
+            {/* BOX 4: Microlearning Videos */}
+            <div
+              onClick={() => onOpenModule?.('videos', lastLobId || 'csr')}
+              className="flex flex-col justify-between bg-white rounded-2xl border border-stone-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-6 relative overflow-hidden group cursor-pointer min-h-[290px]"
+            >
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-purple-600 z-20" />
+
+              {/* Blurred Thematic Background Image */}
+              <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
+                <img
+                  src={videosBg}
+                  alt=""
+                  aria-hidden="true"
+                  className="w-full h-full object-cover scale-105 filter blur-[2.5px] opacity-75 group-hover:opacity-90 group-hover:scale-110 transition-all duration-500 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/70 to-white/85 group-hover:from-white/70 group-hover:via-white/60 group-hover:to-white/80 transition-all duration-300" />
+              </div>
+
+              <div className="relative z-10 flex-1 flex flex-col justify-between mb-5">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-purple-50/90 text-purple-700 flex items-center justify-center border border-purple-100 shadow-2xs backdrop-blur-xs group-hover:scale-105 transition-transform">
+                      <Video className="w-6 h-6" />
                     </div>
-                    <div className="flex items-center gap-1 text-xs font-bold text-stone-900 group-hover:text-[#BA1E38] group-hover:translate-x-0.5 transition-all">
-                      <span>Open workspace</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </div>
+                    <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-purple-50/90 text-purple-700 border border-purple-200 backdrop-blur-xs shadow-2xs">
+                      Video Library
+                    </span>
                   </div>
-                </button>
-              );
-            })}
+
+                  <h3 className="text-xl font-extrabold text-stone-950 group-hover:text-purple-700 transition-colors mb-1.5 drop-shadow-2xs">
+                    Microlearning Videos
+                  </h3>
+                  <p className="text-xs font-bold text-stone-600 uppercase tracking-wider mb-2">
+                    2-4 Minute Bite-Sized Media
+                  </p>
+                  <p className="text-sm text-stone-800 font-medium leading-relaxed drop-shadow-2xs">
+                    Quick 2–4 minute video guides on etiquette and transfers.
+                  </p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onOpenModule?.('videos', lastLobId || 'csr');
+                }}
+                className="relative z-10 w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm text-white bg-purple-600 hover:bg-purple-700 transition-colors shadow-xs cursor-pointer group-hover:shadow-md"
+              >
+                <span>Watch Training Videos</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
           </div>
-
-          {/* Row 2: 2 centered boxes (desktop) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-            {LOBS.slice(3, 5).map((lob) => {
-              const stats = getLobStats(lob.id);
-              return (
-                <button
-                  key={lob.id}
-                  onClick={() => onSelectLob(lob)}
-                  className="group relative flex flex-col justify-between text-left p-6 sm:p-7 rounded-2xl bg-white border border-stone-200/90 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 focus-visible:ring-3 focus-visible:ring-[#BA1E38] focus-visible:outline-hidden cursor-pointer overflow-hidden min-h-[270px]"
-                  style={{
-                    borderTop: `4px solid ${lob.accent.primary}`,
-                  }}
-                >
-                  {/* Blurred Background Image - Clearly visible with soft focus & gentle tint for readability */}
-                  <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
-                    <img
-                      src={lob.bgImage}
-                      alt={lob.name}
-                      aria-hidden="true"
-                      className="w-full h-full object-cover scale-105 filter blur-[2.5px] opacity-75 group-hover:opacity-90 group-hover:scale-110 transition-all duration-500 ease-out"
-                    />
-                    {/* Balanced translucent scrim: lets image details and colors shine through while keeping text crisp */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/60 to-white/80 group-hover:from-white/60 group-hover:via-white/50 group-hover:to-white/70 transition-all duration-300" />
-                  </div>
-
-                  <div className="relative z-10 flex-1">
-                    {/* Header with Icon and LOB name */}
-                    <div className="flex items-start justify-between mb-4">
-                      <div
-                        className="p-3 rounded-xl transition-all duration-200 group-hover:scale-105 shadow-xs border border-white/80 backdrop-blur-md"
-                        style={{ backgroundColor: lob.accent.light }}
-                      >
-                        {getIcon(lob.id)}
-                      </div>
-                      <span
-                        className="text-xs font-bold tracking-wider px-2.5 py-1 rounded-md uppercase backdrop-blur-md border border-white/80 shadow-xs"
-                        style={{
-                          backgroundColor: lob.accent.tagBg,
-                          color: lob.accent.text,
-                        }}
-                      >
-                        {lob.name}
-                      </span>
-                    </div>
-
-                    <h2 className="text-xl font-extrabold text-[#191824] group-hover:text-[#BA1E38] transition-colors drop-shadow-2xs">
-                      {lob.name}
-                    </h2>
-                    <p className="text-xs font-bold text-stone-600 mb-2">
-                      {lob.fullName}
-                    </p>
-                    <p className="text-sm font-medium text-stone-800 leading-relaxed mb-6 drop-shadow-2xs">
-                      {lob.description}
-                    </p>
-                  </div>
-
-                  {/* Footer with cue & stats */}
-                  <div className="relative z-10 pt-3 border-t border-stone-200/80 bg-white/65 -mx-6 sm:-mx-7 -mb-6 sm:-mb-7 px-6 sm:px-7 py-3 rounded-b-2xl backdrop-blur-xs flex items-center justify-between">
-                    <div className="text-xs text-stone-600 font-semibold flex items-center gap-2">
-                      {stats.passedTopics > 0 && (
-                        <span className="flex items-center gap-1 text-emerald-700 font-bold">
-                          <CheckCircle2 className="w-3.5 h-3.5" />
-                          <span>{stats.passedTopics}/3 Topics</span>
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-1 text-xs font-bold text-stone-900 group-hover:text-[#BA1E38] group-hover:translate-x-0.5 transition-all">
-                      <span>Open workspace</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </div>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        </div>
+        </section>
       </div>
 
       {/* Footer link to Ask the Trainer */}

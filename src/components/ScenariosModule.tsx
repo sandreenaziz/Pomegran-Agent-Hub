@@ -14,7 +14,7 @@ import {
   Sparkles,
   Lightbulb,
 } from 'lucide-react';
-import { LobConfig, Scenario, ScenarioOption } from '../data/content';
+import { LobConfig, LOBS, Scenario, ScenarioOption } from '../data/content';
 import { getScenarioResults, saveScenarioResult, ScenarioResult } from '../utils/storage';
 import { LobSearchBar } from './LobSearchBar';
 import { SearchResultItem } from '../utils/search';
@@ -26,6 +26,7 @@ interface ScenariosModuleProps {
   onOpenTrainer: () => void;
   initialScenarioId?: string;
   onSelectSearchResult?: (item: SearchResultItem) => void;
+  onSwitchLob?: (newLob: LobConfig) => void;
 }
 
 export const ScenariosModule: React.FC<ScenariosModuleProps> = ({
@@ -35,6 +36,7 @@ export const ScenariosModule: React.FC<ScenariosModuleProps> = ({
   onOpenTrainer,
   initialScenarioId,
   onSelectSearchResult,
+  onSwitchLob,
 }) => {
   const [selectedScenario, setSelectedScenario] = useState<Scenario | null>(() => {
     if (initialScenarioId) {
@@ -541,18 +543,18 @@ export const ScenariosModule: React.FC<ScenariosModuleProps> = ({
       <div className="mb-8">
         <button
           onClick={onBackToWorkspace}
-          className="inline-flex items-center gap-2 text-xs font-semibold text-stone-600 hover:text-stone-900 mb-4 transition-colors group focus-visible:ring-2 focus-visible:ring-rose-800 rounded-md py-1 px-2"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-stone-600 hover:text-stone-900 mb-4 transition-colors group focus-visible:ring-2 focus-visible:ring-rose-800 rounded-md py-1.5 px-3 bg-white border border-stone-200 shadow-2xs cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4 text-stone-500 group-hover:-translate-x-1 transition-transform" />
-          <span>Back to {lob.name} Workspace</span>
+          <span>Back to Main Page</span>
         </button>
 
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-stone-200 pb-5">
           <div>
             <div className="flex items-center gap-2 text-xs text-stone-500 font-semibold mb-1">
-              <span>{lob.name} Workspace</span>
+              <span>Agent Hub</span>
               <span>·</span>
-              <span>Module 02</span>
+              <span>Real Customer Scenarios</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-stone-950 tracking-tight">
               Real Customer Scenarios
@@ -571,6 +573,35 @@ export const ScenariosModule: React.FC<ScenariosModuleProps> = ({
             </div>
           </div>
         </div>
+
+        {/* Queue Switcher Bar inside Scenarios */}
+        {onSwitchLob && (
+          <div className="mt-4 pt-3 flex flex-wrap items-center gap-2 border-b border-stone-100 pb-3">
+            <span className="text-xs font-bold text-stone-500 uppercase tracking-wider mr-1">
+              Select Queue:
+            </span>
+            {LOBS.map((q) => {
+              const isCurrent = q.id === lob.id;
+              return (
+                <button
+                  key={q.id}
+                  onClick={() => onSwitchLob(q)}
+                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    isCurrent
+                      ? 'bg-stone-900 text-white shadow-xs'
+                      : 'bg-white hover:bg-stone-100 text-stone-700 border border-stone-200'
+                  }`}
+                >
+                  <span
+                    className="w-2 h-2 rounded-full"
+                    style={{ backgroundColor: q.accent.primary }}
+                  />
+                  <span>{q.name}</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
 
         {/* LOB Scoped Search Bar inside Scenarios */}
         <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">

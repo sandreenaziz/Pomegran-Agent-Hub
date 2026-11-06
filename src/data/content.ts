@@ -20,7 +20,7 @@ export interface AppSettings {
 export const SETTINGS: AppSettings = {
   appName: "Pomegran Account – Agent Hub",
   tagline: "One place to learn, practice, and get answers",
-  welcomeLine: "Pick your team to start learning",
+  welcomeLine: "Pick your topic to start learning",
   trainerEmail: "Sandreen.aziz@intelcia.com",
   passMarkPercentage: 80,
   documentDate: "Oct 15, 2026",

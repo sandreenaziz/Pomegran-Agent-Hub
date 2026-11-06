@@ -39,28 +39,16 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
           </button>
 
-          {/* Contextual LOB Badge and Breadcrumbs if in workspace */}
-          {currentLob && (
+          {/* Contextual Back Button if inside module */}
+          {currentModuleTitle && onNavigateBackToLob && (
             <div className="flex items-center gap-2 pl-3 border-l border-stone-200">
-              {onNavigateBackToLob && currentModuleTitle ? (
-                <button
-                  onClick={onNavigateBackToLob}
-                  className="inline-flex items-center gap-1.5 text-xs font-medium text-stone-600 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 py-1 px-2.5 rounded-md transition-colors cursor-pointer"
-                >
-                  <ArrowLeft className="w-3.5 h-3.5" />
-                  <span>{currentLob.name} Workspace</span>
-                </button>
-              ) : (
-                <div
-                  className="px-2.5 py-1 rounded-md text-xs font-bold tracking-wide"
-                  style={{
-                    backgroundColor: currentLob.accent.tagBg,
-                    color: currentLob.accent.text,
-                  }}
-                >
-                  {currentLob.name} Team
-                </div>
-              )}
+              <button
+                onClick={onNavigateBackToLob}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-600 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 py-1 px-2.5 rounded-md transition-colors cursor-pointer"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Back to Main Page</span>
+              </button>
             </div>
           )}
         </div>
@@ -73,19 +61,6 @@ export const Header: React.FC<HeaderProps> = ({
           >
             Home
           </button>
-          {currentLob && (
-            <>
-              <span className="mx-2 text-stone-300">/</span>
-              <button
-                onClick={onNavigateBackToLob || undefined}
-                className={`hover:text-stone-900 transition-colors cursor-pointer ${
-                  !currentModuleTitle ? 'text-stone-900 font-semibold' : ''
-                }`}
-              >
-                {currentLob.fullName}
-              </button>
-            </>
-          )}
           {currentModuleTitle && (
             <>
               <span className="mx-2 text-stone-300">/</span>

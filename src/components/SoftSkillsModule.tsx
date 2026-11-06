@@ -301,18 +301,18 @@ export const SoftSkillsModule: React.FC<SoftSkillsModuleProps> = ({
       <div className="mb-8">
         <button
           onClick={onBackToWorkspace}
-          className="inline-flex items-center gap-2 text-xs font-semibold text-stone-600 hover:text-stone-900 mb-4 transition-colors group focus-visible:ring-2 focus-visible:ring-rose-800 rounded-md py-1 px-2"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-stone-600 hover:text-stone-900 mb-4 transition-colors group focus-visible:ring-2 focus-visible:ring-rose-800 rounded-md py-1.5 px-3 bg-white border border-stone-200 shadow-2xs cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4 text-stone-500 group-hover:-translate-x-1 transition-transform" />
-          <span>Back to {lob.name} Workspace</span>
+          <span>Back to Main Page</span>
         </button>
 
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-stone-200 pb-5">
           <div>
             <div className="flex items-center gap-2 text-xs text-stone-500 font-semibold mb-1">
-              <span>{lob.name} Workspace</span>
+              <span>Agent Hub</span>
               <span>·</span>
-              <span>Module 03</span>
+              <span>Soft Skills Academy</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-stone-950 tracking-tight">
               Soft Skills Academy

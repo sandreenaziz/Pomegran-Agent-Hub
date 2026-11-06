@@ -15,7 +15,7 @@ import {
   X,
   AlertCircle,
 } from 'lucide-react';
-import { HotTopic, LobConfig, SETTINGS } from '../data/content';
+import { HotTopic, LobConfig, LOBS, SETTINGS } from '../data/content';
 import { getQuizResults, saveQuizResult, QuizResult } from '../utils/storage';
 import { LobSearchBar } from './LobSearchBar';
 import { SearchResultItem } from '../utils/search';
@@ -27,6 +27,8 @@ interface HotTopicsModuleProps {
   onOpenTrainer: () => void;
   initialTopicId?: string;
   onSelectSearchResult?: (item: SearchResultItem) => void;
+  onSwitchLob?: (newLob: LobConfig) => void;
+  onBackToQueueSelect?: () => void;
 }
 
 export const HotTopicsModule: React.FC<HotTopicsModuleProps> = ({
@@ -36,6 +38,8 @@ export const HotTopicsModule: React.FC<HotTopicsModuleProps> = ({
   onOpenTrainer,
   initialTopicId,
   onSelectSearchResult,
+  onSwitchLob,
+  onBackToQueueSelect,
 }) => {
   const [selectedTopic, setSelectedTopic] = useState<HotTopic | null>(() => {
     if (initialTopicId) {
@@ -516,20 +520,31 @@ export const HotTopicsModule: React.FC<HotTopicsModuleProps> = ({
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumb & Top Bar */}
       <div className="mb-8">
-        <button
-          onClick={onBackToWorkspace}
-          className="inline-flex items-center gap-2 text-xs font-semibold text-stone-600 hover:text-stone-900 mb-4 transition-colors group focus-visible:ring-2 focus-visible:ring-rose-800 rounded-md py-1 px-2"
-        >
-          <ArrowLeft className="w-4 h-4 text-stone-500 group-hover:-translate-x-1 transition-transform" />
-          <span>Back to {lob.name} Workspace</span>
-        </button>
+        <div className="flex items-center gap-2 mb-4">
+          {onBackToQueueSelect && (
+            <button
+              onClick={onBackToQueueSelect}
+              className="inline-flex items-center gap-2 text-xs font-semibold text-stone-600 hover:text-stone-900 transition-colors group focus-visible:ring-2 focus-visible:ring-rose-800 rounded-md py-1 px-2.5 bg-white border border-stone-200 shadow-2xs cursor-pointer"
+            >
+              <ArrowLeft className="w-4 h-4 text-stone-500 group-hover:-translate-x-1 transition-transform" />
+              <span>Back to Queue Selection</span>
+            </button>
+          )}
+          <button
+            onClick={onBackToWorkspace}
+            className="inline-flex items-center gap-2 text-xs font-semibold text-stone-600 hover:text-stone-900 transition-colors group focus-visible:ring-2 focus-visible:ring-rose-800 rounded-md py-1 px-2.5 cursor-pointer"
+          >
+            <ArrowLeft className="w-4 h-4 text-stone-500 group-hover:-translate-x-1 transition-transform" />
+            <span>Back to Main Page</span>
+          </button>
+        </div>
 
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-stone-200 pb-5">
           <div>
             <div className="flex items-center gap-2 text-xs text-stone-500 font-semibold mb-1">
-              <span>{lob.name} Workspace</span>
+              <span>{lob.name} Queue</span>
               <span>·</span>
-              <span>Module 01</span>
+              <span>Hot Topics</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-stone-950 tracking-tight">
               Hot Topics
@@ -548,6 +563,35 @@ export const HotTopicsModule: React.FC<HotTopicsModuleProps> = ({
             </div>
           </div>
         </div>
+
+        {/* Queue Switcher Bar inside Hot Topics */}
+        {onSwitchLob && (
+          <div className="mt-4 pt-3 flex flex-wrap items-center gap-2 border-b border-stone-100 pb-3">
+            <span className="text-xs font-bold text-stone-500 uppercase tracking-wider mr-1">
+              Select Queue:
+            </span>
+            {LOBS.map((q) => {
+              const isCurrent = q.id === lob.id;
+              return (
+                <button
+                  key={q.id}
+                  onClick={() => onSwitchLob(q)}
+                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    isCurrent
+                      ? 'bg-stone-900 text-white shadow-xs'
+                      : 'bg-white hover:bg-stone-100 text-stone-700 border border-stone-200'
+                  }`}
+                >
+                  <span
+                    className="w-2 h-2 rounded-full"
+                    style={{ backgroundColor: q.accent.primary }}
+                  />
+                  <span>{q.name}</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
 
         {/* LOB Scoped Search Bar inside Hot Topics */}
         <div className="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
