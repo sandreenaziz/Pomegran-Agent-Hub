@@ -33,6 +33,7 @@ export default function App() {
   const [isHotTopicsSelectActive, setIsHotTopicsSelectActive] = useState<boolean>(false);
   const [targetItemId, setTargetItemId] = useState<string | null>(null);
   const [lastLobId, setLastLobIdState] = useState<LobId | null>(null);
+  const [selectedVideoCategory, setSelectedVideoCategory] = useState<string | null>(null);
 
   // Modal state for quick Ask Trainer popup from anywhere
   const [isTrainerModalOpen, setIsTrainerModalOpen] = useState<boolean>(false);
@@ -49,6 +50,7 @@ export default function App() {
     setCurrentLob(lob);
     setCurrentModule(module);
     setIsHotTopicsSelectActive(false);
+    setSelectedVideoCategory(null);
     setTargetItemId(null);
     setLastLob(lob.id);
     setLastLobIdState(lob.id);
@@ -59,6 +61,7 @@ export default function App() {
     setCurrentLob(null);
     setCurrentModule(null);
     setIsHotTopicsSelectActive(true);
+    setSelectedVideoCategory(null);
     setTargetItemId(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -72,6 +75,23 @@ export default function App() {
 
     setCurrentLob(targetLob);
     setCurrentModule(module);
+    setSelectedVideoCategory(null);
+    setIsHotTopicsSelectActive(false);
+    setTargetItemId(null);
+    setLastLob(targetLob.id);
+    setLastLobIdState(targetLob.id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleOpenVideoCategory = (categoryName: string) => {
+    const targetLob =
+      currentLob ||
+      (lastLobId && LOBS.find((l) => l.id === lastLobId)) ||
+      LOBS[0];
+
+    setCurrentLob(targetLob);
+    setCurrentModule('videos');
+    setSelectedVideoCategory(categoryName);
     setIsHotTopicsSelectActive(false);
     setTargetItemId(null);
     setLastLob(targetLob.id);
@@ -90,6 +110,7 @@ export default function App() {
     setCurrentLob(null);
     setCurrentModule(null);
     setIsHotTopicsSelectActive(false);
+    setSelectedVideoCategory(null);
     setTargetItemId(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -143,7 +164,9 @@ export default function App() {
       case 'soft-skills':
         return 'Soft Skills Academy';
       case 'videos':
-        return 'Microlearning Videos';
+        return selectedVideoCategory
+          ? `Microlearning Videos (${selectedVideoCategory})`
+          : 'Microlearning Videos';
       case 'ask-trainer':
         return 'Ask the Trainer';
       default:
@@ -159,11 +182,22 @@ export default function App() {
         onNavigateHome={handleNavigateHome}
         onOpenTrainer={() => setIsTrainerModalOpen(true)}
         currentModuleTitle={getModuleTitle(currentModule)}
+        backButtonLabel={
+          isHotTopicsSelectActive
+            ? 'Back to Main Page'
+            : currentModule === 'hot-topics'
+            ? 'Back to Queue Selection'
+            : currentModule === 'videos' && selectedVideoCategory
+            ? 'Back to Categories'
+            : 'Back to Main Page'
+        }
         onNavigateBackToLob={
           isHotTopicsSelectActive
             ? handleNavigateHome
             : currentModule === 'hot-topics'
             ? handleOpenHotTopicsSelect
+            : currentModule === 'videos' && selectedVideoCategory
+            ? () => setSelectedVideoCategory(null)
             : currentModule
             ? handleNavigateHome
             : undefined
@@ -178,6 +212,7 @@ export default function App() {
             onSelectLob={handleSelectLob}
             onOpenModule={handleOpenModuleFromHome}
             onSelectHotTopics={handleOpenHotTopicsSelect}
+            onOpenVideoCategory={handleOpenVideoCategory}
             lastLobId={lastLobId}
             onOpenTrainer={() => setIsTrainerModalOpen(true)}
             onSelectSearchResult={handleSelectSearchResult}
@@ -236,6 +271,8 @@ export default function App() {
             onBackToWorkspace={handleNavigateHome}
             onOpenTrainer={() => setIsTrainerModalOpen(true)}
             initialVideoId={targetItemId || undefined}
+            initialCategory={selectedVideoCategory}
+            onClearInitialCategory={() => setSelectedVideoCategory(null)}
           />
         )}
 

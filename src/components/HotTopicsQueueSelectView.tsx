@@ -79,8 +79,8 @@ export const HotTopicsQueueSelectView: React.FC<HotTopicsQueueSelectViewProps> =
         </div>
       </div>
 
-      {/* The 5 LOB Boxes: Placed next to each other in a single row on desktop/laptop */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 lg:gap-3.5 xl:gap-4 mb-12">
+      {/* The 5 LOB Boxes: Placed next to each other in 5 columns on desktop */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 xl:gap-4 mb-12">
         {LOBS.map((lob) => {
           const stats = getLobStats(lob.id);
           return (
@@ -104,32 +104,26 @@ export const HotTopicsQueueSelectView: React.FC<HotTopicsQueueSelectViewProps> =
               </div>
 
               <div className="relative z-10 flex-1 min-w-0">
-                {/* Header with Icon and LOB name tag */}
-                <div className="flex items-start justify-between gap-1.5 mb-3">
+                {/* Header with Icon and clean Topic Count badge */}
+                <div className="flex items-center justify-between gap-2 mb-3">
                   <div
                     className="p-2 sm:p-2.5 rounded-xl transition-all duration-200 group-hover:scale-105 shadow-xs border border-white/80 backdrop-blur-md shrink-0"
                     style={{ backgroundColor: lob.accent.light }}
                   >
                     {getIcon(lob.id)}
                   </div>
-                  <span
-                    className="text-[10px] sm:text-xs font-bold tracking-wider px-2 py-0.5 rounded-md uppercase backdrop-blur-md border border-white/80 shadow-xs shrink-0"
-                    style={{
-                      backgroundColor: lob.accent.tagBg,
-                      color: lob.accent.text,
-                    }}
-                  >
-                    {lob.name}
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/90 text-stone-700 border border-stone-200/80 backdrop-blur-xs shadow-2xs shrink-0">
+                    3 Topics
                   </span>
                 </div>
 
-                <h2 className="text-base sm:text-lg xl:text-xl font-extrabold text-[#191824] group-hover:text-[#BA1E38] transition-colors drop-shadow-2xs truncate">
+                <h2 className="text-lg xl:text-xl font-extrabold text-[#191824] group-hover:text-[#BA1E38] transition-colors drop-shadow-2xs leading-tight">
                   {lob.name}
                 </h2>
-                <p className="text-[11px] font-bold text-stone-600 mb-2 truncate" title={lob.fullName}>
+                <p className="text-[11px] font-bold text-stone-600 mt-0.5 mb-2 leading-tight">
                   {lob.fullName}
                 </p>
-                <p className="text-xs font-medium text-stone-800 leading-snug mb-4 drop-shadow-2xs line-clamp-3">
+                <p className="text-xs font-medium text-stone-800 leading-relaxed mb-4 drop-shadow-2xs">
                   {lob.description}
                 </p>
               </div>

@@ -8,7 +8,7 @@ import {
   HelpCircle,
   Sparkles,
 } from 'lucide-react';
-import { LOBS, LobConfig, LobId, SETTINGS } from '../data/content';
+import { LOBS, LobConfig, LobId, SETTINGS, VIDEO_CATEGORIES } from '../data/content';
 import { GlobalSearchBar } from './GlobalSearchBar';
 import { SearchResultItem } from '../utils/search';
 import { PomegranLogo } from './PomegranLogo';
@@ -17,6 +17,8 @@ import hotTopicsBg from '../assets/images/box_hottopics_bg_1793033569356.jpg';
 import scenariosBg from '../assets/images/box_scenarios_bg_1793033569484.jpg';
 import softSkillsBg from '../assets/images/box_softskills_bg_1793033571209.jpg';
 import videosBg from '../assets/images/box_videos_bg_1793033571091.jpg';
+
+import { VideoCategoryBoxes } from './VideoCategoryBoxes';
 
 export type ModuleType =
   | 'hot-topics'
@@ -29,6 +31,7 @@ interface HomeViewProps {
   onSelectLob: (lob: LobConfig, targetModule?: ModuleType) => void;
   onOpenModule?: (module: ModuleType, preferredLobId?: LobId) => void;
   onSelectHotTopics: () => void;
+  onOpenVideoCategory?: (categoryName: string) => void;
   lastLobId: LobId | null;
   onOpenTrainer: () => void;
   onSelectSearchResult: (item: SearchResultItem) => void;
@@ -38,6 +41,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
   onSelectLob,
   onOpenModule,
   onSelectHotTopics,
+  onOpenVideoCategory,
   lastLobId,
   onOpenTrainer,
   onSelectSearchResult,
@@ -221,7 +225,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                       <GraduationCap className="w-6 h-6" />
                     </div>
                     <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-emerald-50/90 text-emerald-700 border border-emerald-200 backdrop-blur-xs shadow-2xs">
-                      5 Master Lessons
+                      8 Master Lessons
                     </span>
                   </div>
 
@@ -275,7 +279,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                       <Video className="w-6 h-6" />
                     </div>
                     <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-purple-50/90 text-purple-700 border border-purple-200 backdrop-blur-xs shadow-2xs">
-                      Video Library
+                      {VIDEO_CATEGORIES.length} Categories
                     </span>
                   </div>
 
@@ -283,10 +287,10 @@ export const HomeView: React.FC<HomeViewProps> = ({
                     Microlearning Videos
                   </h3>
                   <p className="text-xs font-bold text-stone-600 uppercase tracking-wider mb-2">
-                    2-4 Minute Bite-Sized Media
+                    {VIDEO_CATEGORIES.length} Subject Libraries
                   </p>
                   <p className="text-sm text-stone-800 font-medium leading-relaxed drop-shadow-2xs">
-                    Quick 2–4 minute video guides on etiquette and transfers.
+                    Customer Service Soft Skills, Fiber Optics, Culture, Rally TV, Retention, Sales, and Tickets.
                   </p>
                 </div>
               </div>
@@ -299,11 +303,42 @@ export const HomeView: React.FC<HomeViewProps> = ({
                 }}
                 className="relative z-10 w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-sm text-white bg-purple-600 hover:bg-purple-700 transition-colors shadow-xs cursor-pointer group-hover:shadow-md"
               >
-                <span>Watch Training Videos</span>
+                <span>Explore Video Categories</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
           </div>
+        </section>
+
+        {/* MICROLEARNING VIDEO CATEGORIES SECTION ON HOME */}
+        <section className="mb-14">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6 pb-3 border-b border-stone-200">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 border border-purple-200 text-purple-700 text-xs font-bold mb-2">
+                <Video className="w-3.5 h-3.5" />
+                <span>MICROLEARNING VIDEO LIBRARY</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-950 tracking-tight">
+                Microlearning Video Categories
+              </h2>
+              <p className="text-sm text-stone-600 mt-1">
+                Explore bite-sized video lessons by subject category. Click any category box below to watch the videos inside.
+              </p>
+            </div>
+            <div className="text-xs text-stone-500 font-semibold bg-stone-100 px-3 py-1.5 rounded-lg shrink-0">
+              {VIDEO_CATEGORIES.length} Categories Available
+            </div>
+          </div>
+
+          <VideoCategoryBoxes
+            onSelectCategory={(catName) => {
+              if (onOpenVideoCategory) {
+                onOpenVideoCategory(catName);
+              } else {
+                onOpenModule?.('videos', lastLobId || 'csr');
+              }
+            }}
+          />
         </section>
       </div>
 

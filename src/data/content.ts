@@ -52,12 +52,170 @@ import salesBg from '../assets/images/lob_bg_sales_1792089529315.jpg';
 import activationBg from '../assets/images/lob_bg_activation_1792089528791.jpg';
 import canquestBg from '../assets/images/lob_bg_canquest_1792089528824.jpg';
 
+import fiberOpticsCatBg from '../assets/images/cat_fiber_optics_1794235141685.jpg';
+import pomegranCultureCatBg from '../assets/images/cat_pomegran_culture_1794235157979.jpg';
+import rallyTvCatBg from '../assets/images/cat_rally_tv_1794235179260.jpg';
+import retainingCustCatBg from '../assets/images/cat_retaining_cust_1794235195901.jpg';
+import salesSkillsCatBg from '../assets/images/cat_sales_skills_1794235213262.jpg';
+import ticketsHandlingCatBg from '../assets/images/cat_tickets_handling_1794235230244.jpg';
+
+import thumbFiberEng from '../assets/images/video_thumbs/vid-gdrive-fiber-eng.jpg';
+import thumbFiberFr from '../assets/images/video_thumbs/vid-gdrive-fiber-fr.jpg';
+import thumbCulturePomegran from '../assets/images/video_thumbs/vid-gdrive-culture-pomegran.jpg';
+import thumbCultureNivo from '../assets/images/video_thumbs/vid-gdrive-culture-nivo.jpg';
+import thumbRallyTvEng from '../assets/images/video_thumbs/vid-gdrive-rallytv-eng.jpg';
+import thumbRallyTvFr from '../assets/images/video_thumbs/vid-gdrive-rallytv-fr.jpg';
+import thumbRetentionEng from '../assets/images/video_thumbs/vid-gdrive-retention-eng.jpg';
+import thumbRetentionFr from '../assets/images/video_thumbs/vid-gdrive-retention-fr.jpg';
+import thumbSalesClose from '../assets/images/video_thumbs/vid-gdrive-sales-close.jpg';
+import thumbTicketHandling from '../assets/images/video_thumbs/vid-gdrive-ticket-handling.jpg';
+
+import csSoftSkillsCatBg from '../assets/images/cat_cs_softskills_1794241905794.jpg';
+import thumbRapportEng from '../assets/images/video_thumbs/vid-gdrive-rapport-eng.jpg';
+import thumbRapportFr from '../assets/images/video_thumbs/vid-gdrive-rapport-fr.jpg';
+import thumbCsSoftSkills from '../assets/images/video_thumbs/vid-gdrive-softskills.jpg';
+import thumbTurningNegativeEng from '../assets/images/video_thumbs/vid-gdrive-turning-negative-eng.jpg';
+import thumbTurningNegativeFr from '../assets/images/video_thumbs/vid-gdrive-turning-negative-fr.jpg';
+
+import lessonEmpathyBg from '../assets/images/lesson_empathy_bg_1794236488557.jpg';
+import lessonListeningBg from '../assets/images/lesson_listening_bg_1794236504652.jpg';
+import lessonObjectionBg from '../assets/images/lesson_objection_bg_1794236525285.jpg';
+import lessonOwnershipBg from '../assets/images/lesson_ownership_bg_1794236559836.jpg';
+import lessonCommunicationBg from '../assets/images/lesson_communication_bg_1794236576262.jpg';
+import lessonRapportBg from '../assets/images/lesson_rapport_bg_1794236592762.jpg';
+import lessonProbingBg from '../assets/images/lesson_probing_bg_1794236609746.jpg';
+import lessonClosingBg from '../assets/images/lesson_closing_bg_1794236625978.jpg';
+
+export interface VideoCategoryConfig {
+  id: string;
+  name: string;
+  subtitle: string;
+  description: string;
+  bgImage: string;
+  iconName: 'Cable' | 'Sparkles' | 'Tv' | 'HeartHandshake' | 'TrendingUp' | 'Ticket';
+  accent: {
+    primary: string;
+    light: string;
+    border: string;
+    text: string;
+    tagBg: string;
+  };
+}
+
+export const VIDEO_CATEGORIES: VideoCategoryConfig[] = [
+  {
+    id: 'fiber-optics',
+    name: 'Fiber Optics',
+    subtitle: 'Network Infrastructure',
+    description: 'High-speed fiber optic architecture, ONT hardware, and symmetrical speeds in English & Français.',
+    bgImage: fiberOpticsCatBg,
+    iconName: 'Cable',
+    accent: {
+      primary: '#0284C7',
+      light: '#F0F9FF',
+      border: '#BAE6FD',
+      text: '#0284C7',
+      tagBg: '#E0F2FE',
+    },
+  },
+  {
+    id: 'pomegran-culture',
+    name: 'Pomegran Culture',
+    subtitle: 'Brand Mission & Workplace',
+    description: 'Core organizational values, customer promises, and the Nivo digital workspace inspired by Digicom.',
+    bgImage: pomegranCultureCatBg,
+    iconName: 'Sparkles',
+    accent: {
+      primary: '#BA1E38',
+      light: '#FFF1F3',
+      border: '#FBCDD3',
+      text: '#BA1E38',
+      tagBg: '#FFE4E8',
+    },
+  },
+  {
+    id: 'rally-tv',
+    name: 'Rally TV',
+    subtitle: 'Streaming TV & Guides',
+    description: 'Rally TV streaming setup, package activations, app troubleshooting, and channel options in English & Français.',
+    bgImage: rallyTvCatBg,
+    iconName: 'Tv',
+    accent: {
+      primary: '#7C3AED',
+      light: '#F5F3FF',
+      border: '#DDD6FE',
+      text: '#7C3AED',
+      tagBg: '#EDE9FE',
+    },
+  },
+  {
+    id: 'retaining-customers',
+    name: 'Retaining Customers',
+    subtitle: 'Retention & Loyalty Care',
+    description: 'Proven strategies to save churn risk accounts, re-anchor value, and offer right-sized solutions in English & Français.',
+    bgImage: retainingCustCatBg,
+    iconName: 'HeartHandshake',
+    accent: {
+      primary: '#D97706',
+      light: '#FFFBEB',
+      border: '#FDE68A',
+      text: '#D97706',
+      tagBg: '#FEF3C7',
+    },
+  },
+  {
+    id: 'sales-soft-skills',
+    name: 'Sales Soft Skills',
+    subtitle: 'Discovery & Deal Closing',
+    description: '5 discovery questions, pain-to-value translation, and closing sales naturally with confidence.',
+    bgImage: salesSkillsCatBg,
+    iconName: 'TrendingUp',
+    accent: {
+      primary: '#059669',
+      light: '#ECFDF5',
+      border: '#A7F3D0',
+      text: '#059669',
+      tagBg: '#D1FAE5',
+    },
+  },
+  {
+    id: 'tickets-handling',
+    name: 'Tickets Handling',
+    subtitle: 'CRM Workflow & Escalations',
+    description: 'Standard operating procedures for logging, categorizing, and escalating customer support tickets.',
+    bgImage: ticketsHandlingCatBg,
+    iconName: 'Ticket',
+    accent: {
+      primary: '#2563EB',
+      light: '#EFF6FF',
+      border: '#BFDBFE',
+      text: '#2563EB',
+      tagBg: '#DBEAFE',
+    },
+  },
+  {
+    id: 'customer-service-soft-skills',
+    name: 'Customer Service Soft Skills',
+    subtitle: 'Rapport, De-escalation & Care',
+    description: 'Building rapport, turning negative calls into positive experiences, and essential empathy in English & Français.',
+    bgImage: csSoftSkillsCatBg,
+    iconName: 'HeartHandshake',
+    accent: {
+      primary: '#BA1E38',
+      light: '#FFF1F3',
+      border: '#FBCDD3',
+      text: '#BA1E38',
+      tagBg: '#FFE4E8',
+    },
+  },
+];
+
 export const LOBS: LobConfig[] = [
   {
     id: 'csr',
     name: 'CSR',
-    fullName: 'Customer Service Representative',
-    description: 'Inbound account questions, billing, and complaints',
+    fullName: 'Customer Service',
+    description: 'Billing, inquiries, and customer care.',
     focusArea: 'Inbound account questions, billing, complaints',
     badgeLabel: 'Customer Service',
     bgImage: csrBg,
@@ -72,8 +230,8 @@ export const LOBS: LobConfig[] = [
   {
     id: 'tsr',
     name: 'TSR',
-    fullName: 'Technical Support Representative',
-    description: 'Troubleshooting, access issues, and escalation steps',
+    fullName: 'Technical Support',
+    description: 'Diagnostics, internet, and troubleshooting.',
     focusArea: 'Troubleshooting, access issues, escalation steps',
     badgeLabel: 'Tech Support',
     bgImage: tsrBg,
@@ -88,8 +246,8 @@ export const LOBS: LobConfig[] = [
   {
     id: 'sales',
     name: 'Sales',
-    fullName: 'Sales Representative',
-    description: 'Product positioning, upgrades, and closing',
+    fullName: 'Sales & Upgrades',
+    description: 'New plans, upgrades, and add-ons.',
     focusArea: 'Product positioning, upgrades, closing',
     badgeLabel: 'Commercial & Growth',
     bgImage: salesBg,
@@ -104,8 +262,8 @@ export const LOBS: LobConfig[] = [
   {
     id: 'activation',
     name: 'Activation',
-    fullName: 'Activation Specialist',
-    description: 'New account setup, verification, and first-use guidance',
+    fullName: 'Account Setup',
+    description: 'SIM setup, orders, and verifications.',
     focusArea: 'New account setup, verification, first-use guidance',
     badgeLabel: 'Onboarding & Setup',
     bgImage: activationBg,
@@ -120,8 +278,8 @@ export const LOBS: LobConfig[] = [
   {
     id: 'canquest',
     name: 'Canquest',
-    fullName: 'Canquest Queue (CSR · TSR · Sales)',
-    description: 'Dedicated multi-skill queue handling customer service, technical support, and sales',
+    fullName: 'Specialized Queue',
+    description: 'Multi-skill queue for specialized accounts.',
     focusArea: 'Multi-skill queue: Customer service, technical troubleshooting, and sales inquiries',
     badgeLabel: 'CSR · TSR · Sales',
     bgImage: canquestBg,
@@ -190,12 +348,30 @@ export interface Scenario {
   takeaway: string;
 }
 
+export interface SoftSkillRoleplayOption {
+  id: string;
+  label: string;
+  response: string;
+  type: 'poor' | 'mediocre' | 'master';
+  feedback: string;
+  customerReaction: string;
+}
+
+export interface SoftSkillRoleplay {
+  callerScenario: string;
+  callerQuote: string;
+  callerEmotion: string;
+  context: string;
+  options: SoftSkillRoleplayOption[];
+}
+
 export interface SoftSkillLesson {
   id: string;
   title: string;
   coreIdea: string;
   readTime: string;
   whyItMatters: string;
+  bgImage?: string;
   techniqueSteps: {
     stepNumber: number;
     title: string;
@@ -203,6 +379,7 @@ export interface SoftSkillLesson {
   }[];
   sayThis: string;
   notThis: string;
+  roleplay?: SoftSkillRoleplay;
   quizQuestions: QuizQuestion[];
 }
 
@@ -216,6 +393,8 @@ export interface VideoItem {
   url: string;
   speaker: string;
   keyTakeaways: string[];
+  folder?: string;
+  thumbnail?: string;
 }
 
 // -------------------------------------------------------------
@@ -2248,6 +2427,7 @@ export const SOFT_SKILLS_LESSONS: SoftSkillLesson[] = [
     title: 'Empathy: The Foundation of Service',
     coreIdea: 'Acknowledge the feeling before solving the problem.',
     readTime: '3 min read',
+    bgImage: lessonEmpathyBg,
     whyItMatters: 'Customers need to feel understood before they can absorb logic. Jumping straight to technical fixes when a customer is anxious feels cold and often triggers heightened defensive reactions.',
     techniqueSteps: [
       {
@@ -2268,6 +2448,38 @@ export const SOFT_SKILLS_LESSONS: SoftSkillLesson[] = [
     ],
     sayThis: 'I can completely understand why that surprise charge was upsetting to see on your bill. Let\'s pull up the invoice together and get this sorted out right now.',
     notThis: 'Company billing policies state that all charges generated by the automated server are legally binding unless disputed within 14 calendar days.',
+    roleplay: {
+      callerScenario: 'Remote Worker Facing Urgent Connection Drop',
+      callerQuote: 'I have been transferred three times already, and my internet cut out right in the middle of a client presentation! Are you actually going to fix this, or just pass me along again?!',
+      callerEmotion: 'High Frustration & Urgent Anxiety',
+      context: 'The customer is stressed about their professional reputation and exhausted from being transferred between departments.',
+      options: [
+        {
+          id: 'emp-opt-1',
+          label: 'Defensive Scripted Reply',
+          response: 'Sir, I just answered the phone. Yelling at me isn\'t going to fix your connection, and per company policy all transfers are recorded.',
+          type: 'poor',
+          feedback: 'Defensive replies attack the customer\'s reaction and dramatically escalate hostility.',
+          customerReaction: 'Customer feels attacked, demands a supervisor immediately, and files a formal complaint.'
+        },
+        {
+          id: 'emp-opt-2',
+          label: 'Robotic Procedure Reply',
+          response: 'Please provide your 10-digit account number and the MAC address on the underside of your gateway modem so I can run a line loop test.',
+          type: 'mediocre',
+          feedback: 'Jumping straight to data collection ignores their emotional distress, making the agent seem indifferent.',
+          customerReaction: 'Customer sighs heavily, feeling like just another ticket number in an uncaring machine.'
+        },
+        {
+          id: 'emp-opt-3',
+          label: 'Master Empathetic Partnering',
+          response: 'I completely hear how exhausting and stressful it is to be passed between agents, especially when your client presentation is on the line. You have my full attention—my name is Alex, I am taking personal ownership of this, and let\'s get your connection stable together right now.',
+          type: 'master',
+          feedback: 'Validates the emotion behind the frustration, eliminates the fear of being transferred, and partners on the immediate fix.',
+          customerReaction: 'Customer audibly exhales in relief, thanks you for listening, and cooperates smoothly with troubleshooting.'
+        }
+      ]
+    },
     quizQuestions: [
       {
         id: 'ss-emp-q1',
@@ -2287,58 +2499,163 @@ export const SOFT_SKILLS_LESSONS: SoftSkillLesson[] = [
         options: ['"Let\'s"', '"And"', '"But" (e.g. "I understand, BUT company policy...")', '"Together"'],
         correctIndex: 2,
         explanation: 'The word "but" cancels out the empathy you expressed before it in the listener\'s mind.'
+      },
+      {
+        id: 'ss-emp-q3',
+        question: 'A customer says: "I work from home and my connection dropped in the middle of a client presentation." What is the best empathetic response?',
+        options: [
+          '"Everyone works from home nowadays, you should have an LTE mobile hotspot backup."',
+          '"I can completely understand how stressful that must be, especially during a client presentation. Let\'s look at your modem diagnostics together right now."',
+          '"Let me check ticket 541 to see if your area has an open scheduled maintenance outage."',
+          '"Please calm down and don\'t yell at me."'
+        ],
+        correctIndex: 1,
+        explanation: 'Acknowledging the specific high-stakes context (client presentation) shows true active empathy before moving directly to action.'
+      },
+      {
+        id: 'ss-emp-q4',
+        question: 'What is the primary difference between empathy and sympathy in customer care?',
+        options: [
+          'Sympathy is feeling sorry from a distance ("That sucks"), while empathy is connecting with their experience and partnering on a solution ("I understand how disruptive that is, let\'s fix it")',
+          'Sympathy is used on phone calls, while empathy is only for live chat',
+          'Sympathy offers a discount voucher, empathy offers a router reboot',
+          'There is no difference; they are identical terms in telecom support'
+        ],
+        correctIndex: 0,
+        explanation: 'Sympathy creates passive pity; empathy creates active human connection, validation, and collaborative partnership.'
+      },
+      {
+        id: 'ss-emp-q5',
+        question: 'Why does telling an anxious caller to "Calm down" usually escalate customer anger?',
+        options: [
+          'It communicates that their emotional reaction is invalid or inconvenient to the agent, creating a confrontational dynamic',
+          'It takes too many seconds to say over the phone',
+          'It violates telecom licensing regulations',
+          'Callers prefer internal system codes over plain English'
+        ],
+        correctIndex: 0,
+        explanation: 'Telling someone to calm down dismisses their genuine frustration. Instead, validate their feelings to naturally de-escalate tension.'
       }
     ]
   },
   {
     id: 'soft-listening',
-    title: 'Active Listening & Precision Paraphrasing',
-    coreIdea: 'Let the customer finish, then repeat back the key point.',
+    title: 'Active Listening: Listen to Understand, Not to React',
+    coreIdea: 'Listen to understand, not to react. Pause, reflect, and be fully present.',
     readTime: '3 min read',
-    whyItMatters: 'Interrupting a customer—even to help—makes them feel managed rather than heard. Precision paraphrasing demonstrates total attentiveness and catches misunderstandings before solutions are built.',
+    bgImage: lessonListeningBg,
+    whyItMatters: 'Interrupting a customer or planning your reply while they are talking causes critical details to be missed. Active listening proves the customer matters, prevents costly misunderstandings, and establishes mutual alignment before solving.',
     techniqueSteps: [
       {
         stepNumber: 1,
-        title: 'Practice the 3-second golden pause',
-        description: 'When the customer stops speaking, wait 2 to 3 seconds to ensure they have finished their complete thought.'
+        title: 'Listen to understand, not to react',
+        description: 'Do not plan your response while the other person is speaking. Let them completely finish, then pause before you reply. This small pause helps you process and prevents misunderstandings.'
       },
       {
         stepNumber: 2,
-        title: 'Paraphrase the core objective',
-        description: 'Summarize the essence: "So to make sure I have this exactly right, your primary priority is..."'
+        title: 'Reflect & clarify with precision summaries',
+        description: 'Paraphrase or summarize what you heard: "So what you\'re saying is..." or "Just to make sure I understood correctly..." It confirms alignment and eliminates confusion.'
       },
       {
         stepNumber: 3,
-        title: 'Seek confirmation',
-        description: 'Close the loop with a brief check: "...is that accurate?" before initiating workflows.'
+        title: 'Be fully present with verbal nods',
+        description: 'Put all distractions aside. Show undivided attentiveness with small signals like short verbal nods ("I see", "Right", "Got it"). Your focus tells customers they truly matter.'
       }
     ],
-    sayThis: 'So the main issue is that your roaming data cut out as soon as you crossed into Chicago, and you need that restored before your 2 PM meeting—is that right?',
-    notThis: 'Yeah yeah, roaming issue, okay let me reset your SIM profile hold on.',
+    sayThis: 'Just to make sure I understood correctly: your internet dropped during your afternoon meeting and the Broadband light is flashing green—so what you\'re saying is you need this reconnected immediately before your next call, right?',
+    notThis: 'Yeah yeah yeah, I already know what the problem is while you\'re talking, hold on let me reboot your router.',
+    roleplay: {
+      callerScenario: 'Intermittent Evening Wi-Fi Drops on One Device',
+      callerQuote: 'Every evening around 7:30 PM, the connection drops on my work laptop in the upstairs study, but my phone and the living room smart TV stay connected without any buffer.',
+      callerEmotion: 'Detailed & Puzzled',
+      context: 'Customer has isolated specific patterns and wants an agent who listens to the nuance rather than firing off generic reboot steps.',
+      options: [
+        {
+          id: 'list-opt-1',
+          label: 'Premature Interruptive Response',
+          response: 'Okay yeah, hold on, I am going to send a full factory reset command to your gateway right now. Your internet will cut off for 10 minutes.',
+          type: 'poor',
+          feedback: 'Cutting the customer off and wiping their settings ignores the crucial detail that other devices work fine.',
+          customerReaction: 'Customer is annoyed because the reset disconnects their family without fixing the upstairs laptop signal issue.'
+        },
+        {
+          id: 'list-opt-2',
+          label: 'Generic Scripted Brush-off',
+          response: 'Wi-Fi signals can fluctuate due to interference. You should move closer to the router and restart your computer.',
+          type: 'mediocre',
+          feedback: 'Offers a brush-off suggestion without verifying the 7:30 PM pattern or confirming understanding.',
+          customerReaction: 'Customer feels the agent didn\'t really register the specific timing or room placement.'
+        },
+        {
+          id: 'list-opt-3',
+          label: 'Active Reflective Alignment',
+          response: 'Just to make sure I understood correctly: your living room TV and smartphone maintain a rock-solid connection, but your work laptop specifically drops around 7:30 PM in the upstairs study—so what you\'re saying is this looks like an isolated upstairs 5GHz band attenuation or laptop adapter sleep setting, right?',
+          type: 'master',
+          feedback: 'Paraphrases key facts with precision, validates the customer\'s observation, and zeroes in on the exact technical issue.',
+          customerReaction: 'Customer enthusiastically agrees: "Exactly! You\'re the first person who actually listened to what I described."'
+        }
+      ]
+    },
     quizQuestions: [
       {
         id: 'ss-list-q1',
-        question: 'What is the purpose of the 3-second pause after a customer finishes speaking?',
+        question: 'Why should you take a small pause after the customer finishes speaking instead of answering instantly?',
         options: [
-          'To check your personal phone',
-          'To prevent accidental interruption and ensure the customer has truly finished their thought',
-          'To run out the call time clock',
-          'To mute the headset'
+          'To mute the phone and take personal notes',
+          'To avoid planning responses while they speak, allow your brain to process, and prevent misunderstandings',
+          'To make the call time longer',
+          'To let the customer hang up first'
         ],
         correctIndex: 1,
-        explanation: 'Allowing silence ensures callers finish complex thoughts without feeling rushed.'
+        explanation: 'Pausing ensures you listened to understand rather than to react, giving time to process accurately.'
       },
       {
         id: 'ss-list-q2',
-        question: 'What is precision paraphrasing?',
+        question: 'Which phrases are recommended power openers for reflecting and clarifying customer statements?',
         options: [
-          'Repeating every single word verbatim like a parrot',
-          'Distilling the customer\'s core problem and desired outcome in your own words and asking for confirmation',
-          'Reading the script backwards',
-          'Writing an essay in CRM'
+          '"Are you done talking now?" and "Like I said before..."',
+          '"So what you\'re saying is..." and "Just to make sure I understood correctly..."',
+          '"Per company policy section 4..." and "You are mistaken because..."',
+          '"Whatever you say" and "That doesn\'t sound like our fault"'
         ],
         correctIndex: 1,
-        explanation: 'Paraphrasing captures meaning and outcome, confirming alignment between agent and customer.'
+        explanation: '"So what you\'re saying is..." and "Just to make sure I understood correctly..." confirm you are aligned and avoid confusion.'
+      },
+      {
+        id: 'ss-list-q3',
+        question: 'If a customer speaks rapidly with many scattered details about their problem, what is the best active listening strategy?',
+        options: [
+          'Interrupt them immediately to reduce average handle time',
+          'Let them finish, note down key facts, and summarize the core issues back in chronological order to confirm alignment',
+          'Remain completely silent for two minutes without acknowledging them',
+          'Tell them to hang up and submit a text ticket instead'
+        ],
+        correctIndex: 1,
+        explanation: 'Active listening requires capturing the key facts and feeding back a concise summary to align on the core problem.'
+      },
+      {
+        id: 'ss-list-q4',
+        question: 'What do verbal nods (such as "I see", "Right", "Got it") communicate to a customer on a voice call?',
+        options: [
+          'They demonstrate active presence and reassure the caller that you are engaged and tracking their explanation',
+          'They signal that the call has exceeded the target handle time',
+          'They trigger the automatic voice transcription engine',
+          'They obligate the company to issue a bill concession'
+        ],
+        correctIndex: 0,
+        explanation: 'On audio calls without visual cues, periodic verbal nods reassure the customer they are not speaking into dead air.'
+      },
+      {
+        id: 'ss-list-q5',
+        question: 'When an agent is formulating a rebuttal or solution while the customer is still speaking, what is this habit called?',
+        options: [
+          'Active diagnostic listening',
+          'Predictive workflow synthesis',
+          'Listening to react / Rebuttal listening (which causes crucial details to be missed)',
+          'Reflective parity listening'
+        ],
+        correctIndex: 2,
+        explanation: 'Listening to react divides mental bandwidth between speaking and listening, frequently missing subtle but critical diagnostic details.'
       }
     ]
   },
@@ -2347,6 +2664,7 @@ export const SOFT_SKILLS_LESSONS: SoftSkillLesson[] = [
     title: 'Objection Handling: Understand, Reframe & Confirm',
     coreIdea: 'Understand, respond with value, then confirm.',
     readTime: '3 min read',
+    bgImage: lessonObjectionBg,
     whyItMatters: 'An objection is not a rejection; it is an invitation for more information. Meeting objections with defensiveness loses sales, while curious reframing uncovers what matters most to the buyer.',
     techniqueSteps: [
       {
@@ -2367,6 +2685,38 @@ export const SOFT_SKILLS_LESSONS: SoftSkillLesson[] = [
     ],
     sayThis: 'That is a very fair concern regarding the $15 difference. Here is how our unthrottled 5G hotspot saves you from paying $20 in airport Wi-Fi passes every month.',
     notThis: 'Our plan isn\'t expensive at all. Other companies charge way more if you actually knew their rates.',
+    roleplay: {
+      callerScenario: 'Price Resistance on Fiber Speed Tier',
+      callerQuote: 'Your 500 Mbps plan sounds fast, but $75 a month is $15 more than the promotional introductory price my current cable company is advertising on TV.',
+      callerEmotion: 'Skeptical & Cost Conscious',
+      context: 'Customer is comparing a teaser cable price with a full-value pure fiber package and needs transparent value clarity.',
+      options: [
+        {
+          id: 'obj-opt-1',
+          label: 'Dismissive Confrontation',
+          response: 'Cable promotional prices are gimmicks. If you don\'t want real fiber speed, you can just stay with them.',
+          type: 'poor',
+          feedback: 'Criticizing the customer\'s choice sounds condescending and defensive.',
+          customerReaction: 'Customer becomes defensive: "Well at least they don\'t insult me when I ask about price!"'
+        },
+        {
+          id: 'obj-opt-2',
+          label: 'Passive Capitulation',
+          response: 'Yeah, $75 is kind of high. I wish I could give you a discount, but the system won\'t let me change it.',
+          type: 'mediocre',
+          feedback: 'Agrees that the service is overpriced and shows zero confidence in the value proposition.',
+          customerReaction: 'Customer concludes the plan isn\'t worth the price and decides not to switch.'
+        },
+        {
+          id: 'obj-opt-3',
+          label: 'Isolate, Reframe & Confirm',
+          response: 'That is a completely fair consideration—protecting your monthly budget matters. Aside from that $15 difference, is the speed and reliability everything you\'re looking for? With our pure fiber, your upload speeds are equal to download, and equipment is included with zero hidden rental fees—cable adds $14/month for their modem after month 3. Does looking at the all-in total value make sense for your home?',
+          type: 'master',
+          feedback: 'Validates budget concern, isolates price as the only hurdle, highlights hidden cable fees, and confirms alignment.',
+          customerReaction: 'Customer recalculates: "I hadn\'t factored in the modem rental fee! That actually makes you guys cheaper overall."'
+        }
+      ]
+    },
     quizQuestions: [
       {
         id: 'ss-obj-q1',
@@ -2391,6 +2741,42 @@ export const SOFT_SKILLS_LESSONS: SoftSkillLesson[] = [
         ],
         correctIndex: 1,
         explanation: 'Analytical buyers respect transparent mathematical comparisons that demonstrate long-term value.'
+      },
+      {
+        id: 'ss-obj-q3',
+        question: 'A customer objects: "I don\'t want to sign a 1-year contract because I might move." What is the best reframing response?',
+        options: [
+          '"You have to sign it or our provisioning department will reject your order."',
+          '"I completely understand flexibility is important. Our service moves with you for free anywhere in our coverage territory, so you keep your locked-in promotional rate with zero transfer penalties."',
+          '"Moving is very rare in this economy, so you don\'t need to worry about that."',
+          '"Just sign it today and pay the early termination penalty if you end up moving."'
+        ],
+        correctIndex: 1,
+        explanation: 'Reframing addresses the underlying fear (getting trapped or penalized) by highlighting free mover flexibility.'
+      },
+      {
+        id: 'ss-obj-q4',
+        question: 'Why is arguing against a customer\'s objection with rigid policy quotes counterproductive?',
+        options: [
+          'It triggers psychological reactance and puts the customer into a defensive stance where they stop listening to value',
+          'It lowers call handle time too quickly',
+          'The computer terminal locks up if policies are quoted',
+          'Customers always memorize all policy terms beforehand'
+        ],
+        correctIndex: 0,
+        explanation: 'Quoting rigid policy creates an adversarial contest of wills rather than a collaborative problem-solving partnership.'
+      },
+      {
+        id: 'ss-obj-q5',
+        question: 'After reframing an objection around value or flexibility, what should you do immediately next?',
+        options: [
+          'Immediately transfer the call to billing without confirmation',
+          'Test agreement gently with a confirming temperature check (e.g., "Does looking at it from that perspective make sense for your home?")',
+          'Hang up the call to prevent further questions',
+          'Start talking about an unrelated landline bundle'
+        ],
+        correctIndex: 1,
+        explanation: 'A confirming temperature check ensures the reframe resonated before moving forward to the close.'
       }
     ]
   },
@@ -2399,6 +2785,7 @@ export const SOFT_SKILLS_LESSONS: SoftSkillLesson[] = [
     title: 'Extreme Ownership: Saying What You Will Do & By When',
     coreIdea: 'Say what you will do and by when.',
     readTime: '3 min read',
+    bgImage: lessonOwnershipBg,
     whyItMatters: 'Vague statements like "someone will look into this" breed mistrust and trigger repeat inbound calls. Extreme ownership means putting your name on the solution and giving precise timeframes.',
     techniqueSteps: [
       {
@@ -2419,6 +2806,38 @@ export const SOFT_SKILLS_LESSONS: SoftSkillLesson[] = [
     ],
     sayThis: 'I will personally submit this tower investigation ticket right now, monitor the NOC ticket log, and follow up with you via text by tomorrow at noon with their diagnostic findings.',
     notThis: 'I put in a ticket. If nobody contacts you in a couple of weeks, try calling back customer care.',
+    roleplay: {
+      callerScenario: 'Missed Technician Dispatch Appointment',
+      callerQuote: 'A technician was promised between 1:00 PM and 5:00 PM yesterday, and nobody ever showed up or called me. I took an unpaid half-day off work for this!',
+      callerEmotion: 'Let Down & Rightfully Angry',
+      context: 'Customer sacrificed personal time and income for an appointment that was missed without communication.',
+      options: [
+        {
+          id: 'own-opt-1',
+          label: 'Deflect to Contractors',
+          response: 'Dispatch is handled by an external regional contractor team. We don\'t control their vans or schedules here in customer care.',
+          type: 'poor',
+          feedback: 'Blaming third parties destroys brand trust and makes the company look disorganized.',
+          customerReaction: 'Customer explodes: "I don\'t care who drives the van! I pay Pomegran, not your contractor!"'
+        },
+        {
+          id: 'own-opt-2',
+          label: 'Vague Ticket Hand-off',
+          response: 'I will put an urgent priority note on the open ticket. Someone from dispatch should call you back sometime today or tomorrow.',
+          type: 'mediocre',
+          feedback: 'Vague timeframes ("sometime today or tomorrow") guarantee customer anxiety and repeat check-in calls.',
+          customerReaction: 'Customer feels dismissed: "That\'s what the last person said. When exactly will they call?"'
+        },
+        {
+          id: 'own-opt-3',
+          label: 'Extreme Personal Accountability',
+          response: 'I am truly sorry that happened. Taking time off work only for nobody to arrive is completely unacceptable, and I don\'t blame you for being frustrated. My name is Marcus, and I am taking personal ownership of this. I am messaging our dispatch supervisor directly right now to secure a priority first-appointment slot, and I will text and call you personally by 11:30 AM this morning with the confirmed arrival window.',
+          type: 'master',
+          feedback: 'Validates frustration, takes direct ownership without making excuses, and commits to a specific deadline.',
+          customerReaction: 'Customer calms down significantly: "Thank you Marcus. That\'s all I needed—someone to take responsibility and give me a clear time."'
+        }
+      ]
+    },
     quizQuestions: [
       {
         id: 'ss-own-q1',
@@ -2443,6 +2862,42 @@ export const SOFT_SKILLS_LESSONS: SoftSkillLesson[] = [
         ],
         correctIndex: 1,
         explanation: 'Without clear deadlines, customer anxiety drives repeated status-check calls.'
+      },
+      {
+        id: 'ss-own-q3',
+        question: 'If a technician dispatch delay is caused by an external contractor, what should the representative say?',
+        options: [
+          '"It\'s the contractor\'s fault, don\'t blame Pomegran."',
+          '"I take full responsibility for getting this resolved. I am contacting our dispatch lead right now to expedite your appointment, and I will text you by 2:00 PM."',
+          '"You will have to call the contractor\'s dispatch desk directly."',
+          '"There is nothing anyone can do until tomorrow morning."'
+        ],
+        correctIndex: 1,
+        explanation: 'Customers do not care about internal subcontractor boundaries; they expect the brand to take unified ownership.'
+      },
+      {
+        id: 'ss-own-q4',
+        question: 'What are the two mandatory components of an Extreme Ownership commitment?',
+        options: [
+          'A discount voucher and a supervisor transfer',
+          'A personal action statement ("I will...") and a specific time commitment ("...by 3:00 PM today")',
+          'A disclaimer and an automated survey link',
+          'A generic ticket number and hold music'
+        ],
+        correctIndex: 1,
+        explanation: 'Personal commitment ("I will") plus a clear deadline removes ambiguity and gives the customer certainty.'
+      },
+      {
+        id: 'ss-own-q5',
+        question: 'What should an agent do if an unexpected delay prevents them from meeting a promised deadline?',
+        options: [
+          'Wait for the customer to call back when they notice the delay',
+          'Proactively reach out to the customer before the deadline expires, explain progress made, and set a revised concrete timeframe',
+          'Delete the ticket and close the inquiry',
+          'Hope the technical team resolves it before the customer notices'
+        ],
+        correctIndex: 1,
+        explanation: 'Proactive updates before a deadline expires preserve customer trust even when technical hurdles arise.'
       }
     ]
   },
@@ -2451,6 +2906,7 @@ export const SOFT_SKILLS_LESSONS: SoftSkillLesson[] = [
     title: 'Clear, Short & Positive Communication',
     coreIdea: 'Be clear, short and positive.',
     readTime: '3 min read',
+    bgImage: lessonCommunicationBg,
     whyItMatters: 'Call center conversations move quickly. Bloated, jargon-heavy explanations confuse customers. Clear, structured, and positively framed communication speeds up comprehension and builds confidence.',
     techniqueSteps: [
       {
@@ -2471,6 +2927,38 @@ export const SOFT_SKILLS_LESSONS: SoftSkillLesson[] = [
     ],
     sayThis: 'Here is what happens next in two simple steps: First, you will get an email with a secure link to choose your password. Second, open the Pomegran App and sign in. You will be up and running in under two minutes.',
     notThis: 'Pursuant to standard provisioning protocol MS-409, the backend provisioning daemon must propagate through the LDAP directory before SSO authentication tokens can be instantiated.',
+    roleplay: {
+      callerScenario: 'Confusion Over Prorated First Month Bill',
+      callerQuote: 'My bill just arrived and it\'s $112 instead of the $70 I was promised! Are you guys hitting me with hidden activation penalties already?',
+      callerEmotion: 'Suspicious & Confused',
+      context: 'The customer upgraded midway through their billing cycle and doesn\'t understand prorated date overlap.',
+      options: [
+        {
+          id: 'comm-opt-1',
+          label: 'Internal Accounting Jargon',
+          response: 'Per section 4.1 of the billing matrix, mid-cycle provisioning creates prorated ledger delta charges that co-occur alongside the advance billing cycle.',
+          type: 'poor',
+          feedback: 'Accounting terminology alienates callers and makes charges sound deliberately deceptive.',
+          customerReaction: 'Customer feels swindled: "Speak English! That sounds like complete corporate nonsense."'
+        },
+        {
+          id: 'comm-opt-2',
+          label: 'Blunt Negative Statement',
+          response: 'You can\'t expect a bill of $70 when you changed your plan in the middle of the month. You have to pay for the extra days you used.',
+          type: 'mediocre',
+          feedback: 'Accusatory tone ("You can\'t expect...") makes the customer defensive.',
+          customerReaction: 'Customer bristles: "Nobody told me that when I signed up! Don\'t talk down to me."'
+        },
+        {
+          id: 'comm-opt-3',
+          label: 'Structured, Positive 2-Step Breakdown',
+          response: 'I would be happy to explain that clearly in two simple parts: First, because you started service 12 days before the official cycle cutoff, this first bill includes those initial 12 days plus your first full upcoming month together. Second, starting next month, every bill will stay at your flat agreed rate of $70 with zero surprises. Let\'s review the exact dates together on screen.',
+          type: 'master',
+          feedback: 'Uses structured chunking (2 parts), frames future billing as stable and predictable, and offers transparent review.',
+          customerReaction: 'Customer understands immediately: "Ah, so it\'s essentially a month and a half combined! That makes total sense, thank you."'
+        }
+      ]
+    },
     quizQuestions: [
       {
         id: 'ss-comm-q1',
@@ -2495,6 +2983,410 @@ export const SOFT_SKILLS_LESSONS: SoftSkillLesson[] = [
         ],
         correctIndex: 0,
         explanation: 'Positive framing highlights the path to success rather than walling the customer off.'
+      },
+      {
+        id: 'ss-comm-q3',
+        question: 'Why should agents eliminate telecom acronyms (such as ONT, PON, APN, SNR) when speaking with customers?',
+        options: [
+          'Because jargon creates cognitive overload, makes customers feel alienated, and increases confusion',
+          'Because acronyms are prohibited by legal guidelines',
+          'Because it reduces call handle times too much',
+          'Because customers only understand French terminology'
+        ],
+        correctIndex: 0,
+        explanation: 'Jargon alienates listeners and increases confusion. Translating terms into plain language builds quick clarity.'
+      },
+      {
+        id: 'ss-comm-q4',
+        question: 'What is the benefit of using "The Rule of Three" when delivering technical guidance over the phone?',
+        options: [
+          'Human working memory easily retains and executes groups of three concise steps without getting overwhelmed',
+          'It forces the call to last at least three minutes',
+          'It lets three agents join the call simultaneously',
+          'It requires three separate verifications in the billing system'
+        ],
+        correctIndex: 0,
+        explanation: 'Grouping instructions into threes fits human short-term working memory limits perfectly.'
+      },
+      {
+        id: 'ss-comm-q5',
+        question: 'Instead of saying "You can\'t change your plan until next billing cycle", what is the positive, clear alternative?',
+        options: [
+          '"Your new plan upgrade will kick in smoothly on the first day of your upcoming billing cycle, so your current invoice stays completely clean"',
+          '"It is impossible under our system constraints"',
+          '"You should have called last week before the cutoff"',
+          '"Read your monthly billing statement for the rules"'
+        ],
+        correctIndex: 0,
+        explanation: 'Positive framing tells the customer when and how their desired change will take effect without aggressive negatives.'
+      }
+    ]
+  },
+  {
+    id: 'soft-rapport',
+    title: 'Building Rapport: Confident Conversations that Build Trust',
+    coreIdea: 'Start strong, match tone, validate emotions, and partner with confidence.',
+    readTime: '4 min read',
+    bgImage: lessonRapportBg,
+    whyItMatters: 'Early trust and respect reduce tension and help customers explain needs clearly—even when issues are complex. Good rapport improves customer satisfaction and first-contact resolution, turning anxious callers into collaborative partners.',
+    techniqueSteps: [
+      {
+        stepNumber: 1,
+        title: 'Start strong with clarity and warmth',
+        description: 'Use a warm, professional greeting, introduce yourself clearly, and use the customer\'s name naturally right away so they know they reached the right person.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Match and listen fully before solving',
+        description: 'Mirror tone and pace comfortably. Let the customer finish without interruption; it shows respect and prevents repeated explanations later.'
+      },
+      {
+        stepNumber: 3,
+        title: 'Empathize and use "what we can do" language',
+        description: 'Validate emotions ("I completely understand how that can be frustrating"), partner ("No worries — I\'m here to help you"), and show ownership ("Let me take care of that for you").'
+      },
+      {
+        stepNumber: 4,
+        title: 'Stay composed and close positively',
+        description: 'Maintain emotional control when customers are upset, smile while speaking, take brief notes to personalize, steer toward solutions, and confirm resolution.'
+      }
+    ],
+    sayThis: 'Good morning, thank you for calling Pomegran! My name is Alex. I completely understand how frustrating that service interruption must be—no worries, I am here to help and let me take care of that for you right now.',
+    notThis: 'Account number? Yeah, company policy says that\'s an outage so there\'s nothing I can do until engineering resolves ticket 902. Please wait.',
+    roleplay: {
+      callerScenario: 'New Homeowner Connecting Essential Service',
+      callerQuote: 'Hi! We literally just unpacked our moving truck into our first house this morning, and I\'m hoping we can get our internet activated so my partner can start remote work on Monday.',
+      callerEmotion: 'Excited, Busy & Eager for Reassurance',
+      context: 'Customer is celebrating a major life event (first home) while managing the stress of moving deadlines.',
+      options: [
+        {
+          id: 'rap-opt-1',
+          label: 'Cold Bureaucratic Intake',
+          response: 'Give me your phone number or account number. We have a 5-day standard provisioning window.',
+          type: 'poor',
+          feedback: 'Cold, robotic intake crushes the customer\'s positive energy and introduces immediate dread.',
+          customerReaction: 'Customer is deflated: "Wait, 5 days? But the website said fast setup..."'
+        },
+        {
+          id: 'rap-opt-2',
+          label: 'Transactional Minimum',
+          response: 'Okay, let me look up the service address in the database and see if the fiber terminal is alive.',
+          type: 'mediocre',
+          feedback: 'Functional but lacks any warmth, missed opportunity to build lasting brand loyalty.',
+          customerReaction: 'Customer gives the address neutrally without feeling any connection.'
+        },
+        {
+          id: 'rap-opt-3',
+          label: 'Warm Rapport & Confident Partnership',
+          response: 'Congratulations on your first house! That is such an exciting milestone for you both. My name is Alex—no worries at all, let\'s take care of that for you right now so you can focus on settling in and be 100% ready for Monday work with complete peace of mind.',
+          type: 'master',
+          feedback: 'Celebrates the milestone with genuine human warmth, introduces themselves by name, and provides instant reassurance.',
+          customerReaction: 'Customer smiles: "Thank you so much Alex! You made my morning so much easier."'
+        }
+      ]
+    },
+    quizQuestions: [
+      {
+        id: 'ss-rap-q1',
+        question: 'Which of the following is a common mistake that damages rapport with a customer?',
+        options: [
+          'Sounding scripted, interrupting, or using internal technical jargon',
+          'Using a warm and steady pace',
+          'Validating the customer\'s frustration with empathy',
+          'Confirming resolution before ending the call'
+        ],
+        correctIndex: 0,
+        explanation: 'Robotic scripting, cutting callers off, and throwing internal jargon create distance and escalate tension.'
+      },
+      {
+        id: 'ss-rap-q2',
+        question: 'Which statement demonstrates genuine ownership and partnership during a difficult call?',
+        options: [
+          '"That is not my department\'s fault."',
+          '"No worries — I\'m here to help you, and let me take care of that for you right now."',
+          '"You should have read the terms on page 12."',
+          '"Calm down or I will hang up."'
+        ],
+        correctIndex: 1,
+        explanation: '"No worries — I\'m here to help you, and let me take care of that for you" builds instant trust and demonstrates personal accountability.'
+      },
+      {
+        id: 'ss-rap-q3',
+        question: 'According to the Rapport Job Aid, why is matching a customer\'s vocal energy and pace effective?',
+        options: [
+          'It creates psychological synchrony and signals to the customer that you are on their wavelength and taking their situation seriously',
+          'It allows the agent to talk faster and reduce handle time',
+          'It tricks the caller into buying extra features',
+          'It enables the CRM to calculate speech metrics'
+        ],
+        correctIndex: 0,
+        explanation: 'Tone matching establishes subconscious comfort, demonstrating you are dialed into their urgency.'
+      },
+      {
+        id: 'ss-rap-q4',
+        question: 'How does smiling while speaking affect your voice over the telephone?',
+        options: [
+          'The physical position of the mouth changes vocal resonance and warmth, which callers subconsciously detect as friendliness and confidence',
+          'It has zero acoustic effect over phone lines',
+          'It makes the agent sound unprofessional',
+          'It causes audio distortion in modern noise-canceling headsets'
+        ],
+        correctIndex: 0,
+        explanation: 'Vocal acoustics change measurably when smiling, translating through phone receivers as approachable and confident.'
+      },
+      {
+        id: 'ss-rap-q5',
+        question: 'When a customer is upset, what is the best way to partner with confidence?',
+        options: [
+          'Stay calm and composed, validate their feelings ("I completely hear your frustration"), and reassure them with "I am taking care of this for you right now"',
+          'Raise your voice so they understand you are the expert',
+          'Put them on hold for 10 minutes until they calm down',
+          'Tell them about your own personal bad experiences with other companies'
+        ],
+        correctIndex: 0,
+        explanation: 'A calm anchor combined with validation and direct ownership shifts an upset caller into a collaborative partner.'
+      }
+    ]
+  },
+  {
+    id: 'soft-probing-questions',
+    title: 'Probing Questions: Gathering Details for Effective Problem-Solving',
+    coreIdea: 'Ask targeted probing questions to clarify needs, eliminate assumptions, and provide the best solution.',
+    readTime: '3 min read',
+    bgImage: lessonProbingBg,
+    whyItMatters: 'Jumping to conclusions without probing leads to wrong troubleshooting steps, incorrect plan recommendations, and repeat calls. Probing questions gather critical diagnostic details and ensure agent and customer are on the exact same page.',
+    techniqueSteps: [
+      {
+        stepNumber: 1,
+        title: 'Clarify the exact symptom and error',
+        description: 'Ask specific questions to pinpoint what is happening: "Can you tell me which channels are giving you poor reception?" or "What specific error message are you seeing on the TV screen?"'
+      },
+      {
+        stepNumber: 2,
+        title: 'Verify equipment and physical setup',
+        description: 'Confirm hardware details with alignment questions: "Just to be on the same page, you can\'t find your router\'s package and the sticker on the back?"'
+      },
+      {
+        stepNumber: 3,
+        title: 'Isolate scope and timeline',
+        description: 'Determine whether the issue is isolated or widespread: "Could you confirm if the issue occurs on all devices or just one?" and "When did you first notice the slow speed?"'
+      }
+    ],
+    sayThis: 'To make sure we get you the exact right fix: could you confirm if this slow speed is happening on all devices or just one, and what specific error message appears on your screen?',
+    notThis: 'Your internet is slow? Okay, let me just send a reset signal without asking what device you\'re using.',
+    roleplay: {
+      callerScenario: 'Vague "Internet Not Working" Complaint',
+      callerQuote: 'My internet is completely broken and nothing works in this house! Fix it!',
+      callerEmotion: 'Exasperated & Vague',
+      context: 'Customer is overwhelmed and expressing total failure, but the root cause may be as simple as an unplugged cord or single offline app.',
+      options: [
+        {
+          id: 'prb-opt-1',
+          label: 'Blind Hardware Reset',
+          response: 'Okay, I am resetting your modem from here right now. Wait five minutes.',
+          type: 'poor',
+          feedback: 'Resetting equipment without probing often solves nothing and adds another 5 minutes of downtime.',
+          customerReaction: 'Customer calls back 10 minutes later even more furious because the issue was just a Wi-Fi toggle on their iPad.'
+        },
+        {
+          id: 'prb-opt-2',
+          label: 'Closed Yes/No Interrogation',
+          response: 'Is the power light green? Is the internet light green? Did you pay your bill?',
+          type: 'mediocre',
+          feedback: 'Rapid-fire closed questions feel like an interrogation and cause callers to get flustered.',
+          customerReaction: 'Customer gets overwhelmed: "I don\'t know what lights you\'re talking about, it\'s dark under the desk!"'
+        },
+        {
+          id: 'prb-opt-3',
+          label: 'Targeted Diagnostic Probing',
+          response: 'I will definitely help you get this resolved right away. To help me pinpoint the exact fix: could you tell me if this is happening on every device in the house or just one, and what lights you see on the front of your main gateway unit?',
+          type: 'master',
+          feedback: 'Reassures immediate help, then asks two targeted scope-isolating questions (all devices vs one, and physical power status).',
+          customerReaction: 'Customer checks: "Actually, my wife\'s phone works fine... wait, it\'s only my laptop that can\'t see the network!"'
+        }
+      ]
+    },
+    quizQuestions: [
+      {
+        id: 'ss-prb-q1',
+        question: 'What is the primary reason for asking probing questions in customer support?',
+        options: [
+          'To gather detailed information for effective problem-solving and ensure you and the customer are on the same page',
+          'To interrogate the customer and make them feel responsible',
+          'To avoid solving the issue on the first call',
+          'To stall for time while waiting for your shift to end'
+        ],
+        correctIndex: 0,
+        explanation: 'Probing questions uncover root causes, clarify preferences, and ensure the best solution is provided.'
+      },
+      {
+        id: 'ss-prb-q2',
+        question: 'Which of the following is an effective probing question for a connection issue?',
+        options: [
+          '"Why did you break it?"',
+          '"Could you confirm if the issue occurs on all devices or just one, and when did you first notice it?"',
+          '"Don\'t you know how Wi-Fi works?"',
+          '"Can you just buy a new router today?"'
+        ],
+        correctIndex: 1,
+        explanation: 'Asking whether an issue affects all devices or just one isolates network-level vs device-level problems immediately.'
+      },
+      {
+        id: 'ss-prb-q3',
+        question: 'Why are open-ended probing questions ("Can you describe what happens when...") better than yes/no questions early in troubleshooting?',
+        options: [
+          'They prompt the customer to describe symptoms in their own words, revealing underlying root causes rather than confirming assumptions',
+          'They take longer to answer so the agent can take a break',
+          'They allow the agent to avoid looking at the CRM',
+          'They are required by internet service standards'
+        ],
+        correctIndex: 0,
+        explanation: 'Open-ended questions prevent premature diagnosis and allow subtle error clues to surface naturally.'
+      },
+      {
+        id: 'ss-prb-q4',
+        question: 'What is the risk of jumping straight into troubleshooting without asking probing questions first?',
+        options: [
+          'Applying the wrong fix for an incorrect diagnosis, wasting customer time and resulting in repeat frustrated calls',
+          'The modem will overheat',
+          'The dispatch team will be notified prematurely',
+          'There is no risk; standard reboot fixes 100% of issues'
+        ],
+        correctIndex: 0,
+        explanation: 'Fixing the wrong problem frustrates customers, increases handle time, and causes repeat calls.'
+      },
+      {
+        id: 'ss-prb-q5',
+        question: 'According to the Probing Questions guide, which question effectively verifies physical equipment when a customer cannot locate their router sticker?',
+        options: [
+          '"Just to be on the same page, do you see the device with the glowing LED lights, and can you check the label on the bottom?"',
+          '"Why don\'t you know where your router is?"',
+          '"Can you go to a store and buy a new one?"',
+          '"Guess what color the box is."'
+        ],
+        correctIndex: 0,
+        explanation: 'Alignment questions guide the customer gently to locate physical hardware markers without making them feel inadequate.'
+      }
+    ]
+  },
+  {
+    id: 'soft-closing-sales',
+    title: 'Key Questions to Close the Sale: Uncover Needs & Pain Points',
+    coreIdea: 'Uncover needs, identify pain points, and position our services as the perfect solution to boost closing.',
+    readTime: '3 min read',
+    bgImage: lessonClosingBg,
+    whyItMatters: 'Great sales are not closed with high-pressure pitches; they are closed by asking the right discovery questions. Knowing the customer\'s current provider, speed, bill, and usage guides your pitch directly to their pain points.',
+    techniqueSteps: [
+      {
+        stepNumber: 1,
+        title: 'Identify current provider & monthly spend',
+        description: 'Always ask in every sales conversation: "Who is your current provider?" and "How much are you paying per month?" to establish the competitive baseline.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Uncover speed bottlenecks & hardware load',
+        description: 'Ask: "What speed are you currently getting?" and "How many devices are connected at home?" to calculate their bandwidth demand.'
+      },
+      {
+        stepNumber: 3,
+        title: 'Diagnose lifestyle usage & pain points',
+        description: 'Ask: "Do you stream videos, play online games, or work from home?" Use active listening and take notes—these specific answers guide your personalized closing pitch.'
+      }
+    ],
+    sayThis: 'To make sure you get the best value: who is your current provider and how much are you paying each month? Also, how many devices are active at home, and do you stream 4K or work from home?',
+    notThis: 'Hey, do you want to buy our 500 Mbps plan today for $75? It is really good, trust me.',
+    roleplay: {
+      callerScenario: 'Inquiring Caller Comparing Plans',
+      callerQuote: 'I\'m just calling around to see what internet speeds you offer, but I will probably just stick with my current cable provider.',
+      callerEmotion: 'Guarded & Shopping Around',
+      context: 'Customer is hesitant to commit and expects a pushy sales pitch, but has unaddressed buffering and pricing frustrations.',
+      options: [
+        {
+          id: 'cls-opt-1',
+          label: 'Generic Feature Dump',
+          response: 'We offer 100 Mbps, 300 Mbps, 500 Mbps, and 1 Gigabit. Our fiber optic technology is 100% glass-core and uses GPON technology.',
+          type: 'poor',
+          feedback: 'Reciting speed tiers and tech specs without uncovering customer needs bores callers and leads nowhere.',
+          customerReaction: 'Customer tunes out: "Okay, thanks for the info, I will think about it and call back. Bye."'
+        },
+        {
+          id: 'cls-opt-2',
+          label: 'Aggressive Presumptuous Pitch',
+          response: 'You shouldn\'t stick with cable. Sign up for our 1 Gigabit plan right now for $85 and I\'ll throw in free installation.',
+          type: 'mediocre',
+          feedback: 'High-pressure pitching before uncovering their current spend or usage creates immediate sales resistance.',
+          customerReaction: 'Customer feels pressured: "No thank you, I said I was just calling to compare."'
+        },
+        {
+          id: 'cls-opt-3',
+          label: 'Strategic Pain-Point Discovery & Assumptive Close',
+          response: 'I would be happy to give you our exact rates! To make sure I quote the plan that gives you the best value: who is your current provider, and how much are you paying each month? Also, how many devices are active in your home, and do you stream in 4K or work remotely?',
+          type: 'master',
+          feedback: 'Applies the three essential discovery questions from the job aid (provider, cost, device count/usage) to reveal pain points.',
+          customerReaction: 'Customer opens up: "We\'re paying $95 to the cable company for 150 Mbps, and honestly every night Netflix buffers while my son games downstairs!"'
+        }
+      ]
+    },
+    quizQuestions: [
+      {
+        id: 'ss-cls-q1',
+        question: 'Why should you include questions about current provider, monthly cost, and connected devices in every sales conversation?',
+        options: [
+          'To uncover customer needs, identify pain points, and position our services as the best solution boosting your closing chances',
+          'Because the system requires random surveys',
+          'To criticize the customer\'s budget',
+          'To pass time until a supervisor arrives'
+        ],
+        correctIndex: 0,
+        explanation: 'Discovery questions uncover pain points (overpaying, slow speeds, dropped calls) so you can position your package as the clear winner.'
+      },
+      {
+        id: 'ss-cls-q2',
+        question: 'What should an agent do while the customer answers questions about their current plan and devices?',
+        options: [
+          'Ignore the details and read a standard promotional script',
+          'Listen actively and take notes, because these specific answers guide your pitch and closing recommendation',
+          'Interrupt them to quote the highest price tier immediately',
+          'Put them on hold without notice'
+        ],
+        correctIndex: 1,
+        explanation: 'Active listening and note-taking allow you to tailor the solution directly to their household setup and budget.'
+      },
+      {
+        id: 'ss-cls-q3',
+        question: 'A customer shares: "We pay $95/month to our cable company, but during peak evening hours Netflix buffers while my daughter plays online." How should you position your pitch?',
+        options: [
+          'Highlight that our 500 Mbps pure symmetrical fiber prevents peak-hour cable congestion and saves them $20/month, directly solving their buffering frustration',
+          'Tell them their daughter plays too many games',
+          'Ask them to upgrade to cable television first',
+          'Offer a basic landline phone package'
+        ],
+        correctIndex: 0,
+        explanation: 'Connecting the specific pain points (evening buffering + $95 cost) to your fiber benefits (symmetrical speed + $75 price) creates an irresistible proposition.'
+      },
+      {
+        id: 'ss-cls-q4',
+        question: 'Which question from the Close the Sale guide uncovers household device load?',
+        options: [
+          '"How many devices (smartphones, TVs, laptops, gaming consoles) are typically connected in your home?"',
+          '"Can you count every cable in your house?"',
+          '"Why do you have so many gadgets?"',
+          '"Are your devices older than 5 years?"'
+        ],
+        correctIndex: 0,
+        explanation: 'Quantifying connected devices helps calculate the necessary bandwidth and justifies recommending higher tiers.'
+      },
+      {
+        id: 'ss-cls-q5',
+        question: 'What is an effective, consultative closing question once pain points have been aligned with your solution?',
+        options: [
+          '"Since our fiber plan eliminates your evening buffering and saves you $20 a month, shall we lock this in and schedule your free installation for this Friday?"',
+          '"Do you want it or not?"',
+          '"I have to hit my sales quota, will you buy this?"',
+          '"Call back if you ever make up your mind."'
+        ],
+        correctIndex: 0,
+        explanation: 'An assumptive close directly ties the confirmed benefits back to an action step (scheduling installation) with zero high-pressure friction.'
       }
     ]
   }
@@ -2504,94 +3396,267 @@ export const SOFT_SKILLS_LESSONS: SoftSkillLesson[] = [
 // MICROLEARNING VIDEOS
 // -------------------------------------------------------------
 export const VIDEOS: VideoItem[] = [
+  // --- Google Drive Microlearning Library Folders ---
+  // Folder: Fiber Optics
   {
-    id: 'vid-all-welcome',
+    id: 'vid-gdrive-fiber-eng',
     lobId: 'all',
-    title: 'Welcome to the Agent Hub: Navigation & Core Tools',
-    duration: '2 min',
-    description: 'A 2-minute visual tour of your new Pomegran workspace. Learn how to track topic quizzes, practice branching scenarios, and reach trainer support.',
-    tags: ['Orientation', 'Tools', 'All LOBs'],
-    url: 'PASTE_LINK_HERE',
-    speaker: 'Sandrine Aziz, Training Lead',
+    title: 'Fiber Optics (English)',
+    duration: '3 min',
+    description: 'Comprehensive overview of fiber optic technology, architecture, and network speed capabilities for residential and commercial customers.',
+    tags: ['Fiber Optics', 'Infrastructure', 'English', 'TSR'],
+    url: 'https://drive.google.com/file/d/1G0eFChzi9IKrizdBKC0MyYvKJwzGuZ8W/preview',
+    thumbnail: thumbFiberEng,
+    speaker: 'Pomegran Technical Training Team',
+    folder: 'Fiber Optics',
     keyTakeaways: [
-      'Access your LOB workspace in one click from the home screen.',
-      'Test your comprehension with 5-question Hot Topic quizzes.',
-      'Practice safe decision-making in Real Customer Scenarios before taking live calls.'
+      'Understand how fiber optics deliver symmetrical upload and download speeds.',
+      'Identify optical network terminals (ONT) versus traditional modems.',
+      'Explain fiber reliability advantages clearly to residential customers.'
     ]
   },
   {
-    id: 'vid-csr-billing',
-    lobId: 'csr',
-    title: 'Handling a Billing Complaint: De-escalation Masterclass',
+    id: 'vid-gdrive-fiber-fr',
+    lobId: 'all',
+    title: 'Fibre Optique (Français)',
+    duration: '3 min',
+    description: 'Vue d’ensemble complète de la technologie de fibre optique, de l’architecture réseau et des débits pour les clients résidentiels et commerciaux.',
+    tags: ['Fiber Optics', 'Infrastructure', 'Français', 'TSR'],
+    url: 'https://drive.google.com/file/d/1W70lCM6aXanergD7iQtmRN64CpwMCPdu/preview',
+    thumbnail: thumbFiberFr,
+    speaker: 'Équipe de formation technique Pomegran',
+    folder: 'Fiber Optics',
+    keyTakeaways: [
+      'Comprendre comment la fibre optique assure des vitesses symétriques.',
+      'Distinguer les terminaux de réseau optique (ONT) des modems classiques.',
+      'Expliquer clairement les avantages de la fibre optique aux clients.'
+    ]
+  },
+  // Folder: Pomegran Culture
+  {
+    id: 'vid-gdrive-culture-pomegran',
+    lobId: 'all',
+    title: 'Pomegran Culture Overview',
+    duration: '6 min',
+    description: 'Our core mission, brand values, customer promise, and workplace standards across all lines of business.',
+    tags: ['Pomegran Culture', 'Values', 'Onboarding', 'All LOBs'],
+    url: 'https://drive.google.com/file/d/1bQM6TqaKMHN-rEnKsZYxZiPhanjnQ06N/preview',
+    thumbnail: thumbCulturePomegran,
+    speaker: 'Pomegran Operational Leadership',
+    folder: 'Pomegran Culture',
+    keyTakeaways: [
+      'Embrace our core customer-first culture in every interaction.',
+      'Live the brand values through active empathy, clarity, and ownership.',
+      'Support team collaboration across CSR, TSR, Sales, Activation, and Canquest.'
+    ]
+  },
+  {
+    id: 'vid-gdrive-culture-nivo',
+    lobId: 'all',
+    title: 'Introducing Nivo Inspired by Digicom',
     duration: '4 min',
-    description: 'Watch a senior CSR demonstrate the HEAT framework on a live simulated double-charge complaint, de-escalating in under 180 seconds.',
-    tags: ['Policy', 'Billing', 'Soft Skills'],
-    url: 'PASTE_LINK_HERE',
-    speaker: 'Marcus Sterling, Senior CSR Coach',
+    description: 'Discover the Nivo platform inspired by Digicom, our digital operational system and employee toolset.',
+    tags: ['Pomegran Culture', 'Tools', 'Nivo', 'Digicom'],
+    url: 'https://drive.google.com/file/d/1QMY2k8JaB5tpNSOZuXO-W7GiPaFe927A/preview',
+    thumbnail: thumbCultureNivo,
+    speaker: 'Pomegran Digital Systems Team',
+    folder: 'Pomegran Culture',
     keyTakeaways: [
-      'Acknowledge the billing discrepancy before discussing timelines.',
-      'Use frontline credit autonomy up to $50 without unnecessary supervisor transfers.',
-      'Always confirm the customer understands next month’s expected bill.'
+      'Familiarize yourself with the Nivo dashboard navigation.',
+      'Leverage integrated Digicom workflows for faster customer lookups.',
+      'Access internal communication channels and real-time knowledge bases.'
+    ]
+  },
+  // Folder: Rally TV
+  {
+    id: 'vid-gdrive-rallytv-eng',
+    lobId: 'all',
+    title: 'Rally TV Guide (English)',
+    duration: '3 min',
+    description: 'How Rally TV streaming works, channel packages, setup instructions, and troubleshooting common playback questions.',
+    tags: ['Rally TV', 'Products', 'Streaming', 'English'],
+    url: 'https://drive.google.com/file/d/1UxDacR7ciawtZD1KFx1l6AiQQaewVUUz/preview',
+    thumbnail: thumbRallyTvEng,
+    speaker: 'Pomegran Video Product Specialist',
+    folder: 'Rally TV',
+    keyTakeaways: [
+      'Guide customers through the Rally TV activation and app login flow.',
+      'Troubleshoot common buffering, audio sync, and channel guide loading issues.',
+      'Position complementary TV packages and add-on channels confidently.'
     ]
   },
   {
-    id: 'vid-tsr-troubleshooting',
-    lobId: 'tsr',
-    title: 'Troubleshooting Login Issues & Zero-Knowledge Resets',
-    duration: '5 min',
-    description: 'Step-by-step walkthrough of identifying customer lockout states, resetting multi-factor tokens securely, and cache-clearing browser redirects.',
-    tags: ['Tools', 'Security', 'Troubleshooting'],
-    url: 'PASTE_LINK_HERE',
-    speaker: 'Priya Patel, Senior Tier 2 Lead',
+    id: 'vid-gdrive-rallytv-fr',
+    lobId: 'all',
+    title: 'Rally TV Guide (Français)',
+    duration: '3 min',
+    description: 'Fonctionnement de Rally TV, forfaits de chaînes, configuration et résolution des questions fréquentes de visionnage.',
+    tags: ['Rally TV', 'Products', 'Streaming', 'Français'],
+    url: 'https://drive.google.com/file/d/1W9EX-Dl6RSnk6iPi8iMiQ9JDG0K0BEbA/preview',
+    thumbnail: thumbRallyTvFr,
+    speaker: 'Spécialiste produit vidéo Pomegran',
+    folder: 'Rally TV',
     keyTakeaways: [
-      'Differentiate between brute-force lockouts and password expiration.',
-      'Execute out-of-band SMS OTP verification without viewing customer passwords.',
-      'Guide users to clear corrupted mobile session cookies.'
+      'Guider les clients dans l’activation et la connexion à l’application Rally TV.',
+      'Résoudre les problèmes courants de mémoire tampon et de synchronisation audio.',
+      'Proposer des bouquets de chaînes et options supplémentaires avec assurance.'
+    ]
+  },
+  // Folder: Retaining Customers
+  {
+    id: 'vid-gdrive-retention-eng',
+    lobId: 'all',
+    title: 'Retention Approach (English)',
+    duration: '3 min',
+    description: 'Proven strategies for turning cancellation requests into loyal, retained customer relationships.',
+    tags: ['Retaining Customers', 'Retention', 'De-escalation', 'English'],
+    url: 'https://drive.google.com/file/d/1P0Ym4J_mh2nbOlziKaNDXnI4qDo3HCw3/preview',
+    thumbnail: thumbRetentionEng,
+    speaker: 'Pomegran Retention Lead',
+    folder: 'Retaining Customers',
+    keyTakeaways: [
+      'Uncover the real reason behind the customer’s desire to disconnect.',
+      'Re-anchor the customer to the value received and tailor alternative plans.',
+      'Apply goodwill credits or plan right-sizing before processing cancellation.'
     ]
   },
   {
-    id: 'vid-sales-objections',
+    id: 'vid-gdrive-retention-fr',
+    lobId: 'all',
+    title: 'Approche de Rétention (Français)',
+    duration: '3 min',
+    description: 'Stratégies éprouvées pour convertir les demandes de résiliation en relations clients fidèles et durables.',
+    tags: ['Retaining Customers', 'Retention', 'De-escalation', 'Français'],
+    url: 'https://drive.google.com/file/d/1DG444c3wJ1eJ4olcMF5H7v6YCUu9ay_B/preview',
+    thumbnail: thumbRetentionFr,
+    speaker: 'Responsable de la rétention Pomegran',
+    folder: 'Retaining Customers',
+    keyTakeaways: [
+      'Découvrir la véritable cause de l’intention de résiliation du client.',
+      'Mettre en valeur les services reçus et proposer des offres alternatives adaptées.',
+      'Appliquer un ajustement de forfait ou un crédit de fidélité avant résiliation.'
+    ]
+  },
+  // Folder: Sales Soft Skills
+  {
+    id: 'vid-gdrive-sales-close',
     lobId: 'sales',
-    title: 'Three-Step Objection Handling: Price vs Value Anchoring',
+    title: 'How to Close the Sale',
     duration: '3 min',
-    description: 'Learn how top sales agents handle the "Competitor is $15 cheaper" objection by breaking down total cost of ownership and unthrottled hotspot limits.',
-    tags: ['Sales', 'Soft Skills', 'Closing'],
-    url: 'PASTE_LINK_HERE',
-    speaker: 'David Kim, Commercial Sales Specialist',
+    description: 'Master the art of closing sales naturally by uncovering pain points, asking discovery questions, and guiding the decision.',
+    tags: ['Sales Soft Skills', 'Sales', 'Closing', 'Soft Skills'],
+    url: 'https://drive.google.com/file/d/1LnPEs2Lo455Q7qhYiZT1GvFETeZ3ERS1/preview',
+    thumbnail: thumbSalesClose,
+    speaker: 'Commercial Sales Coach',
+    folder: 'Sales Soft Skills',
     keyTakeaways: [
-      'Never attack the competitor; discover how the prospect uses their phone daily.',
-      'Highlight hidden throttling and roaming charges in budget plans.',
-      'Close with confidence using the 30-day satisfaction guarantee.'
+      'Ask the 5 key questions: current provider, speed, monthly pay, connected devices, and usage.',
+      'Translate customer pain points into tailored speed and hardware solutions.',
+      'Confidently assume the close with clear next onboarding steps.'
+    ]
+  },
+  // Folder: Tickets Handling
+  {
+    id: 'vid-gdrive-ticket-handling',
+    lobId: 'all',
+    title: 'Ticket Handling Best Practices',
+    duration: '3 min',
+    description: 'Standard operating procedures for logging, escalating, categorizing, and following up on customer support tickets in CRM.',
+    tags: ['Tickets Handling', 'Tools', 'CRM', 'Compliance'],
+    url: 'https://drive.google.com/file/d/1xQ4Kpqoiny_reFiFdLoMq0VhJqKnnWAj/preview',
+    thumbnail: thumbTicketHandling,
+    speaker: 'Quality & Operations Lead',
+    folder: 'Tickets Handling',
+    keyTakeaways: [
+      'Document accurate root cause codes on every interaction without skipping steps.',
+      'Set clear customer expectations with explicit callback or resolution timeframes.',
+      'Follow up on open escalations to ensure first-contact resolution integrity.'
+    ]
+  },
+  // Folder: Customer Service Soft Skills (Google Drive: 1BFHRDm2TmdtF_0oTH7np0898x9xKVpbl)
+  {
+    id: 'vid-gdrive-rapport-eng',
+    lobId: 'all',
+    title: 'Building Rapport (English)',
+    duration: '3 min',
+    description: 'Master the art of building immediate rapport with callers, setting a warm tone, and transforming tense inquiries into collaborative relationships.',
+    tags: ['Customer Service Soft Skills', 'Rapport', 'English', 'CSR'],
+    url: 'https://drive.google.com/file/d/1kT2S4D5k5UNmIdzcY-j-iW9vREPxPP0_/preview',
+    thumbnail: thumbRapportEng,
+    speaker: 'Pomegran Training Academy',
+    folder: 'Customer Service Soft Skills',
+    keyTakeaways: [
+      'Start strong with personalized greetings and sincere warmth.',
+      'Match caller tone and pace to establish subconscious comfort.',
+      'Partner with confidence and use proactive commitment phrasing.'
     ]
   },
   {
-    id: 'vid-act-verification',
-    lobId: 'activation',
-    title: 'Completing Account Verification: Document Anti-Fraud Protocol',
+    id: 'vid-gdrive-rapport-fr',
+    lobId: 'all',
+    title: 'Établir le Rapport (Français)',
     duration: '3 min',
-    description: 'An interactive look at inspecting uploaded government photo IDs, spotting digital manipulation, and guiding customers to capture clear scans.',
-    tags: ['Policy', 'Compliance', 'Onboarding'],
-    url: 'PASTE_LINK_HERE',
-    speaker: 'Amina Nour, Fraud & Activation Analyst',
+    description: 'Maîtrisez l\'art d\'établir un rapport immédiat avec les clients, d\'instaurer un climat chaleureux et de transformer les appels tendus en échanges constructifs.',
+    tags: ['Customer Service Soft Skills', 'Rapport', 'Français', 'CSR'],
+    url: 'https://drive.google.com/file/d/1dXVQpC6MNwwVpnP0RQJXQ1Kuu2uK0qjP/preview',
+    thumbnail: thumbRapportFr,
+    speaker: 'Équipe de formation Pomegran',
+    folder: 'Customer Service Soft Skills',
     keyTakeaways: [
-      'Inspect 4 card corners and barcode clarity.',
-      'Coach customers on turning off camera flash to avoid barcode wash-out.',
-      'Process pending manual reviews within the 30-minute operational SLA.'
+      'Démarrez avec un accueil chaleureux et personnalisé.',
+      'Adaptez votre rythme vocal pour créer une synchronisation naturelle.',
+      'Prenez la responsabilité de la prise en charge avec assurance.'
     ]
   },
   {
-    id: 'vid-can-retention',
-    lobId: 'canquest',
-    title: 'Having a Retention Conversation: The Power of Right-Sizing',
+    id: 'vid-gdrive-softskills',
+    lobId: 'all',
+    title: 'Essential Customer Service Soft Skills',
     duration: '4 min',
-    description: 'How to save high-risk churn accounts by moving over-provisioned users to lower budget tiers or seasonal holds, retaining customer lifetime value.',
-    tags: ['Retention', 'Canquest', 'Soft Skills'],
-    url: 'PASTE_LINK_HERE',
-    speaker: 'Jordan Vance, Retention Operations Manager',
+    description: 'The core soft skill pillars that drive customer satisfaction: active empathy, clear communication, and emotional resilience on every contact.',
+    tags: ['Customer Service Soft Skills', 'Soft Skills', 'Customer Care', 'All LOBs'],
+    url: 'https://drive.google.com/file/d/1ZHpbezalIR-8xrBGeIR5oM841VkmrGuX/preview',
+    thumbnail: thumbCsSoftSkills,
+    speaker: 'Pomegran Customer Experience Team',
+    folder: 'Customer Service Soft Skills',
     keyTakeaways: [
-      'Discover the real departure driver before presenting retention discounts.',
-      'Leverage seasonal account pauses ($5/mo) for students and travelers.',
-      'Deliver dignified departures when cancellation is genuinely the right choice.'
+      'Connect empathetically with customer emotions before presenting technical facts.',
+      'Use clear, jargon-free explanations structured in 2 to 3 simple steps.',
+      'Maintain positive composure and solution-oriented language.'
+    ]
+  },
+  {
+    id: 'vid-gdrive-turning-negative-eng',
+    lobId: 'all',
+    title: 'Turning a Negative Call into a Positive Experience (English)',
+    duration: '4 min',
+    description: 'Proven de-escalation framework to turn anxious, frustrated, or angry callers into satisfied, loyal brand advocates.',
+    tags: ['Customer Service Soft Skills', 'De-escalation', 'Conflict Resolution', 'English'],
+    url: 'https://drive.google.com/file/d/1fG2QiahSHk0rBbcSpu_RWT75i5kGhGG1/preview',
+    thumbnail: thumbTurningNegativeEng,
+    speaker: 'Pomegran Escalations & Quality Team',
+    folder: 'Customer Service Soft Skills',
+    keyTakeaways: [
+      'Allow frustrated customers to vent without interruption or defensive rebuttals.',
+      'Validate customer feelings sincerely without placing blame on other departments.',
+      'Shift the conversation to clear, actionable next steps with defined timeframes.'
+    ]
+  },
+  {
+    id: 'vid-gdrive-turning-negative-fr',
+    lobId: 'all',
+    title: 'Transformer un Appel Négatif en Expérience Positive (Français)',
+    duration: '4 min',
+    description: 'Méthodes éprouvées de désescalade pour transformer les appels difficiles en opportunités d\'excellence et de fidélisation client.',
+    tags: ['Customer Service Soft Skills', 'De-escalation', 'Conflict Resolution', 'Français'],
+    url: 'https://drive.google.com/file/d/1kVZyOL45-aZdKJKQkevf6q98-aVE3N-R/preview',
+    thumbnail: thumbTurningNegativeFr,
+    speaker: 'Équipe Qualité et Expérience Client Pomegran',
+    folder: 'Customer Service Soft Skills',
+    keyTakeaways: [
+      'Écoutez sans interrompre pour laisser le client exprimer sa frustration.',
+      'Validez les émotions avec empathie sincère sans justification défensive.',
+      'Orientez rapidement vers une solution concrète avec engagement de délai.'
     ]
   }
 ];

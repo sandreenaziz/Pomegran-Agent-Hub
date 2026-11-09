@@ -9,6 +9,7 @@ interface HeaderProps {
   onOpenTrainer: () => void;
   currentModuleTitle?: string;
   onNavigateBackToLob?: () => void;
+  backButtonLabel?: string;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -17,6 +18,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenTrainer,
   currentModuleTitle,
   onNavigateBackToLob,
+  backButtonLabel = 'Back to Main Page',
 }) => {
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200/90 shadow-xs">
@@ -47,7 +49,7 @@ export const Header: React.FC<HeaderProps> = ({
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-stone-600 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 py-1 px-2.5 rounded-md transition-colors cursor-pointer"
               >
                 <ArrowLeft className="w-3.5 h-3.5" />
-                <span>Back to Main Page</span>
+                <span>{backButtonLabel}</span>
               </button>
             </div>
           )}
