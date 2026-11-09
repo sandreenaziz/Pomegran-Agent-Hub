@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <rect width="100" height="100" rx="22" fill="#BA1E38"/>
+  <g transform="translate(-2, 0)">
+    <!-- Pomegranate Calyx Crown -->
+    <path d="M24 28C22 22 17 19 11 20C14 23 15 27 15 30C12 30 9 32 7 35C11 37 15 36 18 38C19 41 20 44 23 47C24 42 24 35 24 28Z" fill="#FFFFFF"/>
+
+    <!-- Orbiting Crescent Outer Arc Contour -->
+    <path d="M27 27C37 16 52 10 68 10C92 10 106 28 106 52C106 72 92 90 70 94C71 90 71 85 70 81C86 77 94 64 94 50C94 32 82 18 64 18C51 18 38 24 30 33L27 27Z" fill="#FFFFFF"/>
+
+    <!-- 3D Halftone Perspective Sphere Dots -->
+    <g fill="#FFFFFF">
+      <!-- Ring 1 -->
+      <circle cx="48" cy="24" r="1.6" />
+      <circle cx="54" cy="25" r="1.8" />
+      <circle cx="60" cy="27" r="1.9" />
+      <circle cx="66" cy="30" r="2.0" />
+      <circle cx="72" cy="34" r="2.0" />
+      <circle cx="77" cy="39" r="1.9" />
+
+      <!-- Ring 2 -->
+      <circle cx="41" cy="27" r="1.8" />
+      <circle cx="47" cy="29" r="2.2" />
+      <circle cx="53" cy="31" r="2.4" />
+      <circle cx="59" cy="34" r="2.6" />
+      <circle cx="66" cy="37" r="2.6" />
+      <circle cx="72" cy="42" r="2.4" />
+      <circle cx="78" cy="47" r="2.2" />
+      <circle cx="83" cy="53" r="1.9" />
+
+      <!-- Ring 3 -->
+      <circle cx="34" cy="32" r="2.0" />
+      <circle cx="40" cy="35" r="2.5" />
+      <circle cx="46" cy="37" r="2.8" />
+      <circle cx="53" cy="40" r="3.1" />
+      <circle cx="60" cy="44" r="3.1" />
+      <circle cx="67" cy="48" r="3.0" />
+      <circle cx="73" cy="53" r="2.7" />
+      <circle cx="79" cy="59" r="2.3" />
+      <circle cx="84" cy="65" r="1.8" />
+
+      <!-- Ring 4 -->
+      <circle cx="29" cy="38" r="2.2" />
+      <circle cx="35" cy="41" r="2.8" />
+      <circle cx="41" cy="45" r="3.3" />
+      <circle cx="48" cy="48" r="3.6" />
+      <circle cx="55" cy="52" r="3.6" />
+      <circle cx="62" cy="56" r="3.4" />
+      <circle cx="69" cy="61" r="3.1" />
+      <circle cx="75" cy="66" r="2.6" />
+      <circle cx="80" cy="72" r="2.0" />
+
+      <!-- Ring 5 -->
+      <circle cx="26" cy="46" r="2.1" />
+      <circle cx="31" cy="49" r="2.8" />
+      <circle cx="37" cy="53" r="3.3" />
+      <circle cx="44" cy="57" r="3.7" />
+      <circle cx="51" cy="62" r="3.7" />
+      <circle cx="58" cy="66" r="3.4" />
+      <circle cx="65" cy="71" r="3.0" />
+      <circle cx="71" cy="76" r="2.4" />
+
+      <!-- Ring 6 -->
+      <circle cx="24" cy="54" r="2.0" />
+      <circle cx="29" cy="58" r="2.6" />
+      <circle cx="35" cy="63" r="3.2" />
+      <circle cx="42" cy="67" r="3.5" />
+      <circle cx="49" cy="72" r="3.5" />
+      <circle cx="56" cy="77" r="3.1" />
+      <circle cx="62" cy="81" r="2.6" />
+
+      <!-- Ring 7 -->
+      <circle cx="25" cy="63" r="1.9" />
+      <circle cx="30" cy="68" r="2.5" />
+      <circle cx="36" cy="73" r="2.9" />
+      <circle cx="43" cy="77" r="3.1" />
+      <circle cx="50" cy="82" r="3.0" />
+      <circle cx="56" cy="86" r="2.4" />
+
+      <!-- Ring 8 -->
+      <circle cx="29" cy="73" r="1.7" />
+      <circle cx="34" cy="78" r="2.2" />
+      <circle cx="40" cy="82" r="2.5" />
+      <circle cx="46" cy="86" r="2.6" />
+      <circle cx="52" cy="90" r="2.1" />
+
+      <!-- Ring 9 -->
+      <circle cx="35" cy="86" r="1.6" />
+      <circle cx="41" cy="89" r="2.0" />
+      <circle cx="46" cy="92" r="1.8" />
+    </g>
+  </g>
+</svg>
