@@ -1,7 +1,8 @@
 import React from 'react';
-import { ArrowLeft, MessageSquareQuote } from 'lucide-react';
+import { ArrowLeft, MessageSquareQuote, LogIn, LogOut, User as UserIcon } from 'lucide-react';
 import { LobConfig } from '../data/content';
 import { PomegranLogo } from './PomegranLogo';
+import { useAuth } from '../context/AuthContext';
 
 interface HeaderProps {
   currentLob?: LobConfig | null;
@@ -20,6 +21,7 @@ export const Header: React.FC<HeaderProps> = ({
   onNavigateBackToLob,
   backButtonLabel = 'Back to Main Page',
 }) => {
+  const { user, signIn, signOutUser, loading } = useAuth();
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200/90 shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
@@ -73,16 +75,47 @@ export const Header: React.FC<HeaderProps> = ({
           )}
         </div>
 
-        {/* Persistent Ask the Trainer Action */}
-        <div className="flex items-center gap-2">
+        {/* Persistent Actions & Auth */}
+        <div className="flex items-center gap-2.5">
           <button
             onClick={onOpenTrainer}
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold text-rose-950 bg-rose-50 hover:bg-rose-100 border border-rose-200 shadow-2xs transition-colors focus-visible:ring-2 focus-visible:ring-[#BA1E38] focus-visible:outline-hidden whitespace-nowrap cursor-pointer"
             title="Ask the Trainer questions or suggest topics"
           >
             <MessageSquareQuote className="w-4 h-4 text-[#BA1E38]" />
-            <span>Ask the Trainer</span>
+            <span className="hidden sm:inline">Ask the Trainer</span>
           </button>
+
+          {!loading && (
+            user ? (
+              <div className="flex items-center gap-2 pl-2 border-l border-stone-200">
+                <div className="flex items-center gap-2 text-xs font-medium text-stone-700 bg-stone-50 border border-stone-200 px-2.5 py-1 rounded-full">
+                  {user.photoURL ? (
+                    <img src={user.photoURL} alt={user.displayName || 'Agent'} className="w-4 h-4 rounded-full" />
+                  ) : (
+                    <UserIcon className="w-3.5 h-3.5 text-stone-500" />
+                  )}
+                  <span className="max-w-[100px] truncate font-semibold text-stone-900">{user.displayName?.split(' ')[0] || 'Agent'}</span>
+                </div>
+                <button
+                  onClick={signOutUser}
+                  className="p-1.5 text-stone-500 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
+                  title="Sign Out"
+                >
+                  <LogOut className="w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={signIn}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-stone-700 bg-stone-100 hover:bg-stone-200 border border-stone-200 transition-colors cursor-pointer whitespace-nowrap"
+                title="Sign in with Google"
+              >
+                <LogIn className="w-3.5 h-3.5 text-stone-600" />
+                <span>Sign In</span>
+              </button>
+            )
+          )}
         </div>
       </div>
     </header>

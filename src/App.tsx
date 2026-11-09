@@ -16,18 +16,21 @@ import { ScenariosModule } from './components/ScenariosModule';
 import { SoftSkillsModule } from './components/SoftSkillsModule';
 import { VideosModule } from './components/VideosModule';
 import { AskTrainerModule } from './components/AskTrainerModule';
+import { LoginPage } from './components/LoginPage';
+import { useAuth } from './context/AuthContext';
+import { PomegranEmblem } from './components/PomegranLogo';
 import {
   LOBS,
   LobConfig,
   HOT_TOPICS,
   SCENARIOS,
-  SETTINGS,
   LobId,
 } from './data/content';
 import { getLastLob, setLastLob } from './utils/storage';
 import { SearchResultItem } from './utils/search';
 
 export default function App() {
+  const { user, loading, isAuthorizedDomain } = useAuth();
   const [currentLob, setCurrentLob] = useState<LobConfig | null>(null);
   const [currentModule, setCurrentModule] = useState<ModuleType | null>(null);
   const [isHotTopicsSelectActive, setIsHotTopicsSelectActive] = useState<boolean>(false);
@@ -115,11 +118,7 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  /**
-   * Universal Jump Handler for both Home Global Search and Inside-Module Search
-   */
   const handleSelectSearchResult = (item: SearchResultItem) => {
-    // 1. If clicking a Line of Business
     if (item.type === 'lob' && item.lobId) {
       const matchLob = LOBS.find((l) => l.id === item.lobId);
       if (matchLob) {
@@ -128,12 +127,11 @@ export default function App() {
       return;
     }
 
-    // 2. Determine target LOB
     let destinationLob: LobConfig | null = currentLob;
     if (item.lobId && item.lobId !== 'all') {
       destinationLob = LOBS.find((l) => l.id === item.lobId) || currentLob || LOBS[0];
     } else if (!destinationLob) {
-      destinationLob = LOBS[0]; // fallback default
+      destinationLob = LOBS[0];
     }
 
     if (destinationLob) {
@@ -142,7 +140,6 @@ export default function App() {
       setLastLobIdState(destinationLob.id);
     }
 
-    // 3. Set module and target item ID
     if (item.moduleId) {
       setIsHotTopicsSelectActive(false);
       setCurrentModule(item.moduleId);
@@ -173,6 +170,27 @@ export default function App() {
         return undefined;
     }
   };
+
+  // Auth Loading Screen
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#FAF7F5] flex flex-col items-center justify-center p-4">
+        <div className="flex flex-col items-center gap-4 text-center">
+          <PomegranEmblem size={56} color="#BA1E38" className="animate-pulse" />
+          <div className="space-y-1">
+            <h3 className="text-base font-bold text-stone-900">Verifying Intelcia Agent Credentials...</h3>
+            <p className="text-xs text-stone-500">Checking domain security for Pomegran Agent Hub</p>
+          </div>
+          <div className="w-8 h-8 border-3 border-stone-200 border-t-[#BA1E38] rounded-full animate-spin mt-2" />
+        </div>
+      </div>
+    );
+  }
+
+  // Authentication Gate: Only allow users with authenticated @intelcia.com accounts
+  if (!user || !isAuthorizedDomain) {
+    return <LoginPage />;
+  }
 
   return (
     <div className="min-h-screen bg-white text-stone-900 flex flex-col font-['Plus_Jakarta_Sans',sans-serif]">
@@ -206,7 +224,6 @@ export default function App() {
 
       {/* Main View Area */}
       <main className="flex-1">
-        {/* 1. Home View with 4 Core Pillar Boxes (Hot Topics, Real Customer Scenarios, Soft Skills, Videos) */}
         {!currentModule && !isHotTopicsSelectActive && (
           <HomeView
             onSelectLob={handleSelectLob}
@@ -219,7 +236,6 @@ export default function App() {
           />
         )}
 
-        {/* 1b. Dedicated Hot Topics Queue Selection Page (5 LOB boxes: CSR, TSR, Sales, Activation, Canquest side by side) */}
         {!currentModule && isHotTopicsSelectActive && (
           <HotTopicsQueueSelectView
             onSelectLob={(lob) => handleSelectLob(lob, 'hot-topics')}
@@ -227,7 +243,6 @@ export default function App() {
           />
         )}
 
-        {/* 2. Module 1: Hot Topics */}
         {currentLob && currentModule === 'hot-topics' && (
           <HotTopicsModule
             lob={currentLob}
@@ -241,7 +256,6 @@ export default function App() {
           />
         )}
 
-        {/* 3. Module 2: Real Customer Scenarios */}
         {currentLob && currentModule === 'scenarios' && (
           <ScenariosModule
             lob={currentLob}
@@ -254,7 +268,6 @@ export default function App() {
           />
         )}
 
-        {/* 4. Module 3: Soft Skills Academy */}
         {currentLob && currentModule === 'soft-skills' && (
           <SoftSkillsModule
             lob={currentLob}
@@ -264,7 +277,6 @@ export default function App() {
           />
         )}
 
-        {/* 5. Module 4: Microlearning Videos */}
         {currentLob && currentModule === 'videos' && (
           <VideosModule
             lob={currentLob}
@@ -276,7 +288,6 @@ export default function App() {
           />
         )}
 
-        {/* 6. Module 5: Ask the Trainer (Page View) */}
         {currentLob && currentModule === 'ask-trainer' && (
           <div className="py-8">
             <div className="max-w-3xl mx-auto px-4 mb-4">
