@@ -86,6 +86,15 @@ import lessonRapportBg from '../assets/images/lesson_rapport_bg_1794236592762.jp
 import lessonProbingBg from '../assets/images/lesson_probing_bg_1794236609746.jpg';
 import lessonClosingBg from '../assets/images/lesson_closing_bg_1794236625978.jpg';
 
+import scenCsrDoubleChargeBg from '../assets/images/scen_csr_double_charge_1794311611049.jpg';
+import scenCsrShippingDelayBg from '../assets/images/scen_csr_shipping_delay_1794311683857.jpg';
+import scenTsrRouterDropsBg from '../assets/images/scen_tsr_router_drops_1794311625832.jpg';
+import scenTsrAccountLockoutBg from '../assets/images/scen_tsr_account_lockout_1794311700886.jpg';
+import scenSalesPriceCompareBg from '../assets/images/scen_sales_price_compare_1794311640396.jpg';
+import scenSalesFamilyUpgradeBg from '../assets/images/scen_sales_family_upgrade_1794311714705.jpg';
+import avatarCustomerFemale from '../assets/images/avatar_customer_caller_1794311654266.jpg';
+import avatarCustomerMale from '../assets/images/avatar_caller_man_1794311668430.jpg';
+
 export interface VideoCategoryConfig {
   id: string;
   name: string;
@@ -342,8 +351,11 @@ export interface Scenario {
   customerMood: string;
   difficulty: 'Standard' | 'Challenging';
   setup: string;
+  bgImage?: string;
+  customerAvatar?: string;
   firstStep: ScenarioStep;
   secondSteps: Record<string, ScenarioStep>;
+  thirdSteps?: Record<string, ScenarioStep>;
   idealPath: string;
   takeaway: string;
 }
@@ -1715,6 +1727,8 @@ export const SCENARIOS: Scenario[] = [
     customerName: 'Marcus Vance',
     customerMood: 'Extremely Frustrated',
     difficulty: 'Standard',
+    bgImage: scenCsrDoubleChargeBg,
+    customerAvatar: avatarCustomerMale,
     setup: '"I was charged twice this month and nobody has fixed it. This is the third time I am calling customer care and every time someone promises me a callback that never happens! Fix this right now or I am reversing the charges at my bank!"',
     firstStep: {
       prompt: 'How do you respond to Marcus to take control and de-escalate?',
@@ -1767,7 +1781,8 @@ export const SCENARIOS: Scenario[] = [
             rating: 'best',
             points: 100,
             customerReaction: '"I truly appreciate you going above and beyond. You turned this whole nightmare around. What was your name again?"',
-            reason: 'Delivers transparent reference proof, compensates for time lost, and gives written peace of mind.'
+            reason: 'Delivers transparent reference proof, compensates for time lost, and gives written peace of mind.',
+            nextStepId: 'csr-scen-1-step3-autopay'
           },
           {
             id: 's2-acc',
@@ -1775,7 +1790,8 @@ export const SCENARIOS: Scenario[] = [
             rating: 'acceptable',
             points: 50,
             customerReaction: '"Okay, will I get an email or anything? I guess I just have to watch my bank account."',
-            reason: 'Fixed the basic issue, but missed providing reference documentation and emotional reassurance.'
+            reason: 'Fixed the basic issue, but missed providing reference documentation and emotional reassurance.',
+            nextStepId: 'csr-scen-1-step3-autopay'
           },
           {
             id: 's2-poor',
@@ -1783,7 +1799,8 @@ export const SCENARIOS: Scenario[] = [
             rating: 'poor',
             points: 0,
             customerReaction: '"Are you seriously trying to sell me something right now after you just overcharged me?! Incredible."',
-            reason: 'Tone-deaf sales pitching immediately after a severe service recovery destroys rebuilt trust.'
+            reason: 'Tone-deaf sales pitching immediately after a severe service recovery destroys rebuilt trust.',
+            nextStepId: 'csr-scen-1-step3-autopay'
           }
         ]
       },
@@ -1796,7 +1813,8 @@ export const SCENARIOS: Scenario[] = [
             rating: 'best',
             points: 100,
             customerReaction: '"Thank goodness. That is all I wanted from the start. Thank you for stepping up."',
-            reason: 'Demonstrates situational adaptability and ownership over rigid ticketing habits.'
+            reason: 'Demonstrates situational adaptability and ownership over rigid ticketing habits.',
+            nextStepId: 'csr-scen-1-step3-autopay'
           },
           {
             id: 's2-salvage-poor',
@@ -1804,7 +1822,8 @@ export const SCENARIOS: Scenario[] = [
             rating: 'poor',
             points: 0,
             customerReaction: '"I have three ticket numbers already! You guys are useless."',
-            reason: 'Doubles down on a broken promise rather than taking real-time action.'
+            reason: 'Doubles down on a broken promise rather than taking real-time action.',
+            nextStepId: 'csr-scen-1-step3-autopay'
           }
         ]
       },
@@ -1817,7 +1836,8 @@ export const SCENARIOS: Scenario[] = [
             rating: 'best',
             points: 100,
             customerReaction: '"Okay... at least you can see it. Just get my money back please."',
-            reason: 'Swallows ego, validates the customer’s observation, and pivots to immediate resolution.'
+            reason: 'Swallows ego, validates the customer’s observation, and pivots to immediate resolution.',
+            nextStepId: 'csr-scen-1-step3-autopay'
           },
           {
             id: 's2-rec-poor',
@@ -1825,13 +1845,45 @@ export const SCENARIOS: Scenario[] = [
             rating: 'poor',
             points: 0,
             customerReaction: 'Customer immediately escalates to executive complaints.',
-            reason: 'Escalates conflict instead of de-escalating the emotional driver.'
+            reason: 'Escalates conflict instead of de-escalating the emotional driver.',
+            nextStepId: 'csr-scen-1-step3-autopay'
           }
         ]
       }
     },
-    idealPath: 'Option A (Acknowledge, verify charge, initiate refund immediately) → Step 2 Best (Provide refund tracking ID, $15 courtesy credit, and SMS confirmation).',
-    takeaway: 'Frontline autonomy exists to solve straightforward financial errors immediately. Never defer to callbacks when you can issue the credit during the session.'
+    thirdSteps: {
+      'csr-scen-1-step3-autopay': {
+        prompt: 'Marcus is relieved the refund is underway, but asks: "Before I let you go, why did this happen in the first place? I am enrolled in pre-authorized debit. How do I know next month my bank account won\'t get hit twice again and bounce my mortgage payment?"',
+        options: [
+          {
+            id: 'c1-s3-best',
+            text: 'Audit his payment gateway schedule in real time, identify that a system sync migration created an orphaned recurring batch token, delete the duplicate schedule on the spot, and activate an automated SMS reminder 48 hours before each upcoming debit.',
+            rating: 'best',
+            points: 100,
+            customerReaction: '"That gives me genuine peace of mind. Knowing you deleted the root ghost schedule and I\'ll get an alert two days before debit turns this around completely. Thank you for finishing the job properly."',
+            reason: 'Tackles the root architectural cause, permanently purges the duplicate schedule, and establishes proactive visibility.'
+          },
+          {
+            id: 'c1-s3-acc',
+            text: 'Assure Marcus that lightning rarely strikes twice in billing and recommend he check his online PDF statement every month to stay safe.',
+            rating: 'acceptable',
+            points: 50,
+            customerReaction: '"So basically you\'re saying I have to police your billing system myself every month? Not very reassuring."',
+            reason: 'Passes the burden of monitoring back to the customer rather than solving the systemic recurrence.'
+          },
+          {
+            id: 'c1-s3-poor',
+            text: 'Suggest Marcus cancel pre-authorized debit altogether and pay his bills manually at a bank branch with cash each month.',
+            rating: 'poor',
+            points: 0,
+            customerReaction: '"I work 60 hours a week! I am not standing in line at a bank branch in 2026 because your systems are broken."',
+            reason: 'Forces unnecessary customer friction and increases the likelihood of future late payment charges.'
+          }
+        ]
+      }
+    },
+    idealPath: 'Option A (Acknowledge error, verify charge, initiate refund immediately) → Step 2 Best (Provide refund tracking ID, $15 courtesy credit, SMS confirmation) → Step 3 Best (Audit payment gateway, purge ghost duplicate schedule, enable 48h pre-debit SMS alert).',
+    takeaway: 'Frontline autonomy solves errors in real time, but true excellence requires closing the loop: audit the underlying root cause and give the customer verifiable recurrence prevention.'
   },
   {
     id: 'csr-scen-2',
@@ -1841,6 +1893,8 @@ export const SCENARIOS: Scenario[] = [
     customerName: 'Elena Rostova',
     customerMood: 'Worried & Anxious',
     difficulty: 'Standard',
+    bgImage: scenCsrShippingDelayBg,
+    customerAvatar: avatarCustomerFemale,
     setup: '"My replacement phone was supposed to arrive yesterday for my daughter’s birthday tomorrow, but the courier link still says \'Label Created\'. I cannot reach the courier and I am panicking. Can you find out where the package is?"',
     firstStep: {
       prompt: 'How do you respond to Elena in the chat session?',
@@ -1884,7 +1938,8 @@ export const SCENARIOS: Scenario[] = [
             rating: 'best',
             points: 100,
             customerReaction: '"Oh wow, that is incredible! I can pick it up on my way home from work. You saved her birthday!"',
-            reason: 'Delivers omnichannel problem solving that rescues the customer’s critical deadline.'
+            reason: 'Delivers omnichannel problem solving that rescues the customer’s critical deadline.',
+            nextStepId: 'csr-scen-2-step3'
           },
           {
             id: 'c2-s2-acc',
@@ -1892,7 +1947,8 @@ export const SCENARIOS: Scenario[] = [
             rating: 'acceptable',
             points: 50,
             customerReaction: '"The credit is nice, but I still don’t have a gift for my daughter tomorrow."',
-            reason: 'Helpful and polite, but doesn’t solve the core logistical problem.'
+            reason: 'Helpful and polite, but doesn’t solve the core logistical problem.',
+            nextStepId: 'csr-scen-2-step3'
           },
           {
             id: 'c2-s2-poor',
@@ -1900,13 +1956,45 @@ export const SCENARIOS: Scenario[] = [
             rating: 'poor',
             points: 0,
             customerReaction: '"Completely disappointed. I will be switching carriers after this."',
-            reason: 'Fails to protect the customer relationship.'
+            reason: 'Fails to protect the customer relationship.',
+            nextStepId: 'csr-scen-2-step3'
           }
         ]
       }
     },
-    idealPath: 'Option A (Empathize, investigate logistics portal) → Step 2 Best (Arrange same-day retail store pickup and redirect courier delivery).',
-    takeaway: 'Think beyond standard delivery tracking: omnichannel store inventory can save critical customer deadlines.'
+    thirdSteps: {
+      'csr-scen-2-step3': {
+        prompt: 'Elena is thrilled with the same-day retail pickup reservation, but writes in chat: "That store is 10 minutes away, which is great. But what happens when the courier eventually delivers that delayed package to my porch next week? Will Pomegran charge me twice if I don\'t rush it back immediately?"',
+        options: [
+          {
+            id: 'c2-s3-best',
+            text: 'Explain that you have flagged the tracking ID with a real-time \'Return to Sender\' courier intercept. Reassure her that no duplicate charge will ever be billed to her account, and email a prepaid return slip in case the courier still leaves it on the porch.',
+            rating: 'best',
+            points: 100,
+            customerReaction: '"What a massive weight off my shoulders! You anticipated everything and removed all the stress. I\'m heading to the store now with the QR code ready."',
+            reason: 'Proactively handles reverse logistics, provides explicit non-billing guarantees, and eliminates post-call anxiety.'
+          },
+          {
+            id: 'c2-s3-acc',
+            text: 'Tell her she has 5 calendar days from courier delivery to return the package to any store or a secondary charge will automatically post.',
+            rating: 'acceptable',
+            points: 50,
+            customerReaction: '"Wait, so now I have to make a second trip to the store next week through no fault of my own?"',
+            reason: 'Imposes an artificial return deadline and penalty threat on an innocent customer affected by a company delivery delay.'
+          },
+          {
+            id: 'c2-s3-poor',
+            text: 'Instruct her to refuse the package by standing at her front door waiting for the delivery driver all day.',
+            rating: 'poor',
+            points: 0,
+            customerReaction: '"I work full-time! Courier drivers drop parcels and run. How can I possibly wait at the door all day?"',
+            reason: 'Unrealistic guidance that disregards modern contactless courier operations.'
+          }
+        ]
+      }
+    },
+    idealPath: 'Option A (Empathize, investigate logistics portal) → Step 2 Best (Arrange same-day retail pickup and reroute package) → Step 3 Best (Place carrier intercept, guarantee zero duplicate billing, email prepaid return slip).',
+    takeaway: 'Think beyond standard delivery tracking: omnichannel store inventory can rescue critical customer deadlines, and proactive reverse logistics guarantees eliminate customer anxiety.'
   },
 
   // TSR SCENARIOS
@@ -1918,6 +2006,8 @@ export const SCENARIOS: Scenario[] = [
     customerName: 'Dr. Aris Thorne',
     customerMood: 'Urgent & Stressed',
     difficulty: 'Challenging',
+    bgImage: scenTsrAccountLockoutBg,
+    customerAvatar: avatarCustomerFemale,
     setup: '"I am submitting a critical medical grant proposal in two hours. My account is locked out because I lost my authenticator app when I swapped phones this morning. I need access to my account right now to verify our corporate domain credentials!"',
     firstStep: {
       prompt: 'How do you handle the high-urgency lockout request without compromising security?',
@@ -1961,7 +2051,8 @@ export const SCENARIOS: Scenario[] = [
             rating: 'best',
             points: 100,
             customerReaction: '"I am logged in and the new authenticator is active! You have been a lifesaver today. Truly."',
-            reason: 'Closes the loop by testing in real-time and establishing backup authentication resilience.'
+            reason: 'Closes the loop by testing in real-time and establishing backup authentication resilience.',
+            nextStepId: 'tsr-scen-1-step3'
           },
           {
             id: 't1-s2-acc',
@@ -1969,13 +2060,45 @@ export const SCENARIOS: Scenario[] = [
             rating: 'acceptable',
             points: 50,
             customerReaction: '"Wait, what if it locks me out again when I switch tabs? Oh well, I guess I\'ll find out."',
-            reason: 'Solved the immediate blocker, but left the customer without verified backup codes.'
+            reason: 'Solved the immediate blocker, but left the customer without verified backup codes.',
+            nextStepId: 'tsr-scen-1-step3'
           }
         ]
       }
     },
-    idealPath: 'Option A (Validate urgency, execute verified SMS OTP) → Step 2 Best (Stay on line, re-link authenticator, generate backup codes).',
-    takeaway: 'Never compromise verification for urgency, but execute authenticated recovery swiftly and configure emergency backup codes.'
+    thirdSteps: {
+      'tsr-scen-1-step3': {
+        prompt: 'Dr. Thorne has his authenticator re-paired, but with 90 minutes until the $500k grant portal closes, he asks: "I have to upload 400 MB of clinical research data and submit our encrypted certificate. If my browser session expires or my IP hops during upload, will I get locked out again mid-submission?"',
+        options: [
+          {
+            id: 't1-s3-best',
+            text: 'Guide him to select \'Remember this verified workstation for 30 days\', verify his browser session token lifetime is extended for 8 hours on the security panel, and provide a direct priority callback ticket ID in case his network drops during upload.',
+            rating: 'best',
+            points: 100,
+            customerReaction: '"Session token refreshed and trusted device confirmed! I can upload with complete peace of mind. Thank you for being in my corner today."',
+            reason: 'Prevents unexpected mid-workflow session expiration, secures high-stakes data transmission, and gives an immediate contingency safety net.'
+          },
+          {
+            id: 't1-s3-acc',
+            text: 'Inform him that session tokens normally last 4 hours so as long as he doesn\'t close his laptop lid it should probably be fine.',
+            rating: 'acceptable',
+            points: 50,
+            customerReaction: '"Probably? I need absolute certainty with this deadline, but I guess I will just hurry up."',
+            reason: 'Provides vague probabilistic reassurance rather than verifying the session configuration.'
+          },
+          {
+            id: 't1-s3-poor',
+            text: 'Advise him to clear his browser cache, cookies, and restart his computer before starting the upload to be safe.',
+            rating: 'poor',
+            points: 0,
+            customerReaction: '"Restart my PC and wipe cookies with 90 minutes left?! That would wipe my active session form data!"',
+            reason: 'Destructive technical advice that risks deleting form data and missing the critical submission window.'
+          }
+        ]
+      }
+    },
+    idealPath: 'Option A (Validate urgency, execute verified SMS OTP) → Step 2 Best (Stay on line, re-link authenticator, generate emergency backup codes) → Step 3 Best (Refresh 8-hour session token, configure trusted workstation, provide direct callback code).',
+    takeaway: 'Never compromise verification for urgency, but execute authenticated recovery swiftly and proactively configure session resilience so critical customer workflows never drop.'
   },
   {
     id: 'tsr-scen-2',
@@ -1985,6 +2108,8 @@ export const SCENARIOS: Scenario[] = [
     customerName: 'Devon Lee',
     customerMood: 'Annoyed & Sarcastic',
     difficulty: 'Standard',
+    bgImage: scenTsrRouterDropsBg,
+    customerAvatar: avatarCustomerFemale,
     setup: '"Every day around 2 PM my Pomegran 5G Home Gateway drops connection for 5 minutes right in the middle of team Zoom meetings. Don\'t tell me to unplug it and plug it back in; I\'ve done that 20 times."',
     firstStep: {
       prompt: 'How do you begin diagnosing Devon’s recurring daily drops?',
@@ -2028,7 +2153,8 @@ export const SCENARIOS: Scenario[] = [
             rating: 'best',
             points: 100,
             customerReaction: '"Wow, that makes total sense—my automated blinds drop at 2 PM! Moved the router and my signal jumped to 4 bars. Incredible detective work!"',
-            reason: 'Identifies the root environmental cause and empowers the customer with an effective solution.'
+            reason: 'Identifies the root environmental cause and empowers the customer with an effective solution.',
+            nextStepId: 'tsr-scen-2-step3'
           },
           {
             id: 't2-s2-acc',
@@ -2036,13 +2162,45 @@ export const SCENARIOS: Scenario[] = [
             rating: 'acceptable',
             points: 50,
             customerReaction: '"I guess I can try buying more hardware, but does it fix the gateway?"',
-            reason: 'Hardware band-aid without addressing the physical placement blocker.'
+            reason: 'Hardware band-aid without addressing the physical placement blocker.',
+            nextStepId: 'tsr-scen-2-step3'
           }
         ]
       }
     },
-    idealPath: 'Option A (Consult diagnostic logs, skip scripted reboot) → Step 2 Best (Pinpoint physical attenuation and guide relocation).',
-    takeaway: '5G home broadband is sensitive to physical obstructions. Diagnostic signal metrics pinpoint real environmental causes.'
+    thirdSteps: {
+      'tsr-scen-2-step3': {
+        prompt: 'Devon relocated the gateway and the 5G cellular link jumped to 4 bars. However, Devon notes: "My Zoom is solid now, but my partner works in our finished basement on Wi-Fi. Now that the router is farther inside the house, will the 5 GHz band penetrate down to the basement, or will their connection degrade?"',
+        options: [
+          {
+            id: 't2-s3-best',
+            text: 'Run a remote gateway Wi-Fi diagnostic to inspect the basement client’s RSSI (-61 dBm on 5 GHz), confirm band-steering is active with DFS channels enabled, and explain how to add a zero-configuration Pomegran Mesh node if basement latency ever spikes.',
+            rating: 'best',
+            points: 100,
+            customerReaction: '"Checked the partner\'s laptop—full speed, 210 Mbps in the basement! You diagnosed the cellular problem and optimized our internal Wi-Fi. Incredible support."',
+            reason: 'Evaluates the end-to-end network: verifies both cellular WAN backhaul and local WLAN coverage with telemetry data.'
+          },
+          {
+            id: 't2-s3-acc',
+            text: 'Tell Devon to split the Wi-Fi into separate 2.4 GHz and 5 GHz networks and have the partner use the 2.4 GHz network.',
+            rating: 'acceptable',
+            points: 50,
+            customerReaction: '"2.4 GHz is super noisy with all the neighbours\' networks here, but I guess we\'ll try if speed drops."',
+            reason: 'Workaround that introduces RF congestion rather than utilizing intelligent band-steering.'
+          },
+          {
+            id: 't2-s3-poor',
+            text: 'Tell Devon that home 5G routers can only handle one active video caller at a time and they need to buy a second subscription.',
+            rating: 'poor',
+            points: 0,
+            customerReaction: '"That is completely false. Wi-Fi 6 routers handle dozens of concurrent streams. Are you just trying to upsell me?"',
+            reason: 'Fabricates hardware limitations and attempts an unjustified upsell.'
+          }
+        ]
+      }
+    },
+    idealPath: 'Option A (Consult diagnostic logs, skip scripted reboot) → Step 2 Best (Pinpoint physical attenuation and guide relocation) → Step 3 Best (Analyze basement RSSI, verify band-steering & DFS, outline mesh expansion).',
+    takeaway: '5G home broadband performance depends on both the cellular link and the internal Wi-Fi distribution. Always verify both sides of the gateway.'
   },
 
   // SALES SCENARIOS
@@ -2054,6 +2212,8 @@ export const SCENARIOS: Scenario[] = [
     customerName: 'Sanjay Patel',
     customerMood: 'Skeptical Buyer',
     difficulty: 'Standard',
+    bgImage: scenSalesPriceCompareBg,
+    customerAvatar: avatarCustomerFemale,
     setup: '"Look, your Pomegran Plus plan is $65/mo. TelecomNova is advertising their Unlimited plan for $48/mo. That is a $17 difference every single month. Why on earth would I pay you guys extra?"',
     firstStep: {
       prompt: 'How do you respond to Sanjay’s direct price comparison?',
@@ -2097,7 +2257,8 @@ export const SCENARIOS: Scenario[] = [
             rating: 'best',
             points: 100,
             customerReaction: '"I had no idea their hotspot was throttled to dial-up speeds. That would have killed my work on the train. Let’s set up Pomegran Plus."',
-            reason: 'Ties the specific customer need to competitor hidden limitations, turning the price gap into net savings.'
+            reason: 'Ties the specific customer need to competitor hidden limitations, turning the price gap into net savings.',
+            nextStepId: 'sales-scen-1-step3'
           },
           {
             id: 's1-s2-acc',
@@ -2105,13 +2266,45 @@ export const SCENARIOS: Scenario[] = [
             rating: 'acceptable',
             points: 50,
             customerReaction: '"That\'s nice, but is it worth $17 more every month?"',
-            reason: 'Vague soft benefits fail to justify concrete monetary differences.'
+            reason: 'Vague soft benefits fail to justify concrete monetary differences.',
+            nextStepId: 'sales-scen-1-step3'
           }
         ]
       }
     },
-    idealPath: 'Option A (Validate, ask usage questions) → Step 2 Best (Demonstrate total cost of ownership including unthrottled hotspot).',
-    takeaway: 'Never compete on bare headline price. Discover how the customer works and uncover competitor throttling and surcharges.'
+    thirdSteps: {
+      'sales-scen-1-step3': {
+        prompt: 'Sanjay is sold on Pomegran Plus for his commuter train work, but pauses before finalizing: "Here is the catch: I still have 10 months left on my device payment with TelecomNova, and they want $320 to clear the balance if I leave today. I can\'t afford to pay $320 out of pocket right now. What can you do?"',
+        options: [
+          {
+            id: 's1-s3-best',
+            text: 'Apply the Pomegran Switcher Credit: upload his final carrier payout statement to receive up to $350 in bill credits, issue an instant eSIM digital profile so his current phone activates immediately, and initiate number porting with zero downtime.',
+            rating: 'best',
+            points: 100,
+            customerReaction: '"You will cover the $320 balance through switcher credits?! That wipes out the only obstacle I had left. Send the eSIM activation link—let\'s do this right now!"',
+            reason: 'Overcomes the customer\'s financial lock-in objection using legitimate carrier switcher credits and closes the sale.'
+          },
+          {
+            id: 's1-s3-acc',
+            text: 'Advise Sanjay to wait 10 months until his contract naturally expires and contact Pomegran back then.',
+            rating: 'acceptable',
+            points: 50,
+            customerReaction: '"Okay, I\'ll see where the market is in nearly a year. Thanks."',
+            reason: 'Surrenders a hot, qualified prospect instead of leveraging current switcher incentives.'
+          },
+          {
+            id: 's1-s3-poor',
+            text: 'Push Sanjay to put the $320 charge on his personal credit card because the Pomegran network is \'well worth the upfront sacrifice\'.',
+            rating: 'poor',
+            points: 0,
+            customerReaction: '"I just told you I can\'t afford $320 out of pocket. You\'re being pushy and ignoring my financial situation. Forget it."',
+            reason: 'Aggressive, tone-deaf pressure that alienates the prospective buyer.'
+          }
+        ]
+      }
+    },
+    idealPath: 'Option A (Validate price gap, ask usage questions) → Step 2 Best (Demonstrate total cost including unthrottled hotspot) → Step 3 Best (Leverage Switcher Buyout Credit, initiate eSIM and seamless number porting).',
+    takeaway: 'Never compete on bare headline price. Discover how the customer works, uncover competitor throttling, and dismantle contract lock-in with switcher programs.'
   },
   {
     id: 'sales-scen-2',
@@ -2121,6 +2314,8 @@ export const SCENARIOS: Scenario[] = [
     customerName: 'Claire Dubois',
     customerMood: 'Bargain Hunting',
     difficulty: 'Standard',
+    bgImage: scenSalesFamilyUpgradeBg,
+    customerAvatar: avatarCustomerFemale,
     setup: '"Carrier Z is offering a brand new smartphone for $0 down if I switch today. What can Pomegran offer me to stay and upgrade my family lines?"',
     firstStep: {
       prompt: 'How do you engage Claire to explore retention and family upgrades?',
@@ -2155,7 +2350,8 @@ export const SCENARIOS: Scenario[] = [
             rating: 'best',
             points: 100,
             customerReaction: '"So I can get all three of us new phones without increasing my monthly bill at all?! That is fantastic, let\'s process it right now!"',
-            reason: 'Combines multi-line discounts and hardware trade-in equity into a compelling zero-net-cost upgrade proposition.'
+            reason: 'Combines multi-line discounts and hardware trade-in equity into a compelling zero-net-cost upgrade proposition.',
+            nextStepId: 'sales-scen-2-step3'
           },
           {
             id: 's2-s2-acc',
@@ -2163,258 +2359,45 @@ export const SCENARIOS: Scenario[] = [
             rating: 'poor',
             points: 0,
             customerReaction: '"I asked about phones, not plastic cases. I\'m switching to Carrier Z."',
-            reason: 'Fails to address the core hardware comparison.'
+            reason: 'Fails to address the core hardware comparison.',
+            nextStepId: 'sales-scen-2-step3'
           }
         ]
       }
     },
-    idealPath: 'Option A (Discover family lineup and account equity) → Step 2 Best (Combine multi-line savings + trade-in equity to achieve zero net increase).',
-    takeaway: 'Leverage multi-line scale: savings on plan bundles can offset device financing costs completely.'
-  },
-
-  // ACTIVATION SCENARIOS
-  {
-    id: 'act-scen-1',
-    lobId: 'activation',
-    title: 'Customer Cannot Complete Online Identity Verification',
-    channel: 'Inbound Chat',
-    customerName: 'Fatima Al-Mansoor',
-    customerMood: 'Frustrated & Stuck',
-    difficulty: 'Standard',
-    setup: '"I have tried uploading my driver\'s license four times and your automated portal keeps rejecting it saying \'Image unreadable\'. I am trying to activate my new business line for work on Monday and this is ridiculous."',
-    firstStep: {
-      prompt: 'How do you troubleshoot Fatima’s document upload failure?',
-      options: [
-        {
-          id: 'a1-opt-a',
-          text: 'Acknowledge the frustration with automated scanners, inspect the backend ingestion logs to see the specific rejection trigger, and provide practical photo-capture coaching.',
-          rating: 'best',
-          points: 100,
-          customerReaction: '"Thank you. It rejected it within 2 seconds every time without explaining what was wrong."',
-          reason: 'Examines technical rejection logs rather than making the customer repeat blind attempts.',
-          nextStepId: 'act-scen-1-step2'
-        },
-        {
-          id: 'a1-opt-b',
-          text: 'Tell her to keep trying until it works or drive to a retail store 40 miles away.',
-          rating: 'poor',
-          points: 0,
-          customerReaction: '"If I wanted to drive 40 miles I wouldn\'t have ordered online! Cancel my order."',
-          reason: 'Dismissive and forces unnecessary customer travel.',
-          nextStepId: 'act-scen-1-step2'
-        }
-      ]
-    },
-    secondSteps: {
-      'act-scen-1-step2': {
-        prompt: 'The ingestion log shows: "REJECT_SPECULAR_GLARE_ON_BARCODE". The camera flash washes out the back barcode. How do you guide Fatima?',
+    thirdSteps: {
+      'sales-scen-2-step3': {
+        prompt: 'Claire is enthusiastic about getting 3 new smartphones at $0 net monthly increase, but expresses genuine concern: "My teenagers have thousands of photos, school apps, and contacts. Will their current phones stop working while we wait for shipping, and how do we transfer everything without losing data?"',
         options: [
           {
-            id: 'a1-s2-best',
-            text: 'Explain that the scanner requires the PDF417 2D barcode on the back: "Turn off your phone flash, place the license on a dark non-reflective surface near natural daylight, and snap the photo from a slight angle to eliminate glare."',
+            id: 's2-s3-best',
+            text: 'Clarify that their existing phones stay fully active until the new devices arrive at their door; guide them through the wireless device-to-device transfer utility; and explain that number transfer only triggers when Claire clicks \'Activate\' in the self-serve app.',
             rating: 'best',
             points: 100,
-            customerReaction: '"That worked immediately! Verified in 5 seconds. Thank you so much for explaining the barcode glare issue."',
-            reason: 'Delivers actionable, precise guidance that solves the algorithmic barrier on the spot.'
+            customerReaction: '"That takes away all our stress! Knowing the kids won\'t lose service and data transfers smoothly at home makes this an easy decision. Place the order please!"',
+            reason: 'Reassures the parent on service continuity, data preservation, and self-paced activation control.'
           },
           {
-            id: 'a1-s2-acc',
-            text: 'Ask her to email you a photocopy of her passport instead.',
+            id: 's2-s3-acc',
+            text: 'Tell Claire that data migration is usually straightforward if they have cloud backups and they can figure it out from the quick-start guide in the box.',
             rating: 'acceptable',
             points: 50,
-            customerReaction: '"I don\'t have my passport with me right now, but I guess I can find it later."',
-            reason: 'Workaround works, but causes unnecessary delay when the original ID can be captured properly.'
-          }
-        ]
-      }
-    },
-    idealPath: 'Option A (Investigate backend rejection log) → Step 2 Best (Coach customer on disabling flash and angled lighting to pass barcode scan).',
-    takeaway: 'Automated verification algorithms usually fail due to specular flash glare over micro-barcodes. Coach lighting angles.'
-  },
-  {
-    id: 'act-scen-2',
-    lobId: 'activation',
-    title: 'eSIM Activation Error Code 403 on Brand New Device',
-    channel: 'Phone Call',
-    customerName: 'Liam O’Connor',
-    customerMood: 'Confused & Impatient',
-    difficulty: 'Standard',
-    setup: '"I got my new phone in the mail, opened the activation letter, scanned the QR code with my camera, and it popped up with \'Unable to Complete Cellular Plan Change - Code 403\'. What does that even mean?"',
-    firstStep: {
-      prompt: 'How do you diagnose Liam’s eSIM Code 403 error?',
-      options: [
-        {
-          id: 'a2-opt-a',
-          text: 'Confirm that Code 403 indicates an EID profile mismatch or already-consumed single-use token, verify the phone IMEI/EID in CRM, and check Wi-Fi stability.',
-          rating: 'best',
-          points: 100,
-          customerReaction: '"Got it. My Wi-Fi is working fine. Let me check the EID number in my settings."',
-          reason: 'Accurately decodes carrier error telemetry and verifies device profile identity.',
-          nextStepId: 'act-scen-2-step2'
-        },
-        {
-          id: 'a2-opt-b',
-          text: 'Tell Liam the phone is defective and he must box it up and return it to the warehouse.',
-          rating: 'poor',
-          points: 0,
-          customerReaction: '"A brand new phone is broken out of the box?! Are you kidding me?"',
-          reason: 'Misdiagnoses a simple software provisioning token error as broken hardware.',
-          nextStepId: 'act-scen-2-step2'
-        }
-      ]
-    },
-    secondSteps: {
-      'act-scen-2-step2': {
-        prompt: 'Liam had scanned the QR code twice, which invalidated the single-use download token. How do you restore service in under 60 seconds?',
-        options: [
-          {
-            id: 'a2-s2-best',
-            text: 'Regenerate a fresh carrier eSIM profile in CRM, push it directly over-the-air to his device EID via Apple/Android push notification, and have him tap "Install Cellular Plan" on his screen.',
-            rating: 'best',
-            points: 100,
-            customerReaction: '"A notification just popped up on my screen saying \'Pomegran Plan Ready to Install\'! Tapped it and now I have 5 bars of 5G! That was slick."',
-            reason: 'Uses modern carrier push provisioning, bypassing paper QR codes for instant activation.'
+            customerReaction: '"I\'m not very tech-savvy, so that sounds a bit intimidating, but I guess we\'ll try."',
+            reason: 'Leaves a hesitant customer without clear, reassuring step-by-step guidance.'
           },
           {
-            id: 'a2-s2-acc',
-            text: 'Mail him a physical plastic SIM card that will arrive in 4 business days.',
+            id: 's2-s3-poor',
+            text: 'Inform Claire that number porting starts today so their existing phones will be disconnected until the package arrives in 3 to 4 business days.',
             rating: 'poor',
             points: 0,
-            customerReaction: '"4 days?! I bought an eSIM phone so I wouldn\'t have to wait for the mail!"',
-            reason: 'Slow fallback when digital push provisioning solves it instantly.'
+            customerReaction: '"Three or four days without working phones for my high schoolers?! Absolutely not, cancel everything immediately!"',
+            reason: 'Misrepresents number porting mechanics and creates artificial panic that instantly terminates the deal.'
           }
         ]
       }
     },
-    idealPath: 'Option A (Decode 403 token invalidation) → Step 2 Best (Push fresh eSIM profile over-the-air to device EID).',
-    takeaway: 'eSIM QR codes are strictly single-use. If interrupted, generate a fresh digital push profile directly to the hardware EID.'
-  },
-
-  // CANQUEST SCENARIOS (Multi-Skill Queue: CSR, TSR, Sales)
-  {
-    id: 'can-scen-1',
-    lobId: 'canquest',
-    title: 'Canquest Multi-Skill: Resolving a Wi-Fi Drop and Upgrading Speed Tier (TSR & Sales)',
-    channel: 'Phone Call',
-    customerName: 'Geoffrey Ross',
-    customerMood: 'Frustrated with Buffering',
-    difficulty: 'Standard',
-    setup: '"I am calling the Canquest queue because my internet keeps freezing during my afternoon team video calls. I pay for service and I need this fixed immediately."',
-    firstStep: {
-      prompt: 'As a multi-skilled Canquest agent handling this inbound call, how do you begin troubleshooting the connectivity problem (TSR)?',
-      options: [
-        {
-          id: 'c1-opt-a',
-          text: 'Calmly acknowledge the frustration, run a quick line health check on the Canquest admin tool, and ask him to describe the gateway LED status while testing wired vs 5GHz Wi-Fi.',
-          rating: 'best',
-          points: 100,
-          customerReaction: 'Geoffrey says: "Thanks for checking right away. The Broadband light is solid green, but my laptop is connected to the 2.4GHz Wi-Fi network from two rooms away."',
-          reason: 'Isolates whether the problem is line-level or Wi-Fi interference without unnecessary technician dispatches.',
-          nextStepId: 'can-scen-1-step2'
-        },
-        {
-          id: 'c1-opt-b',
-          text: 'Immediately try to sell him a new $100 router before testing his current connection.',
-          rating: 'poor',
-          points: 0,
-          customerReaction: 'Geoffrey snaps: "I called for help fixing what I already have, not for a sales pitch!"',
-          reason: 'Pitching sales before diagnosing or fixing an active technical issue destroys customer trust.',
-          nextStepId: 'can-scen-1-step2'
-        },
-        {
-          id: 'c1-opt-c',
-          text: 'Tell him to factory reset the router with a paperclip right now.',
-          rating: 'acceptable',
-          points: 50,
-          customerReaction: 'The call disconnects as his VoIP line goes down during the reboot.',
-          reason: 'Factory resetting without checking VoIP dependency or Wi-Fi channel band causes unnecessary friction.',
-          nextStepId: 'can-scen-1-step2'
-        }
-      ]
-    },
-    secondSteps: {
-      'can-scen-1-step2': {
-        prompt: 'You guide Geoffrey to switch to the 5GHz network, and his speed test jumps from 15 Mbps to 180 Mbps with zero packet loss. He mentions his whole household has 4 remote workers now. How do you leverage your multi-skill training to recommend a better long-term solution (Sales)?',
-        options: [
-          {
-            id: 'c1-s2-best',
-            text: 'Congratulate him on the restored speed, note that 4 simultaneous remote workers will saturate their 150 Mbps plan during peak hours, and consultatively offer the Canquest Gigabit upgrade with Smart Mesh Pods for $10 more/month.',
-            rating: 'best',
-            points: 100,
-            customerReaction: '"You fixed my immediate issue in 2 minutes AND for just $10 more all 4 of us can work smoothly without competing for bandwidth? Let’s upgrade right now!"',
-            reason: 'Delivers full multi-skill value: first-contact technical resolution followed by a consultative, value-aligned plan upgrade.'
-          },
-          {
-            id: 'c1-s2-acc',
-            text: 'Say goodbye and hang up since the technical issue was resolved.',
-            rating: 'acceptable',
-            points: 50,
-            customerReaction: '"Thanks for the fix, bye."',
-            reason: 'Resolved the immediate issue, but missed the opportunity to solve his household’s chronic bandwidth bottleneck.'
-          }
-        ]
-      }
-    },
-    idealPath: 'Option A (TSR Diagnostic: check gateway LEDs, test Wi-Fi band) → Step 2 Best (Consultative Sales: position Gigabit tier & Mesh pods for 4 remote workers).',
-    takeaway: 'Canquest multi-skill agents resolve technical glitches first to earn trust, then recommend consultative plan upgrades that permanently solve household capacity issues.'
-  },
-  {
-    id: 'can-scen-2',
-    lobId: 'canquest',
-    title: 'Canquest CSR: First-Month Billing Breakdown & Account Plan Alignment',
-    channel: 'Inbound Chat',
-    customerName: 'Chloe Tremblay',
-    customerMood: 'Puzzled by Bill',
-    difficulty: 'Standard',
-    setup: '"Hi Canquest team! I just opened my first bill and it is $89 instead of the $65 monthly rate I was quoted when I signed up. Why is it higher?"',
-    firstStep: {
-      prompt: 'How do you handle Chloe’s first-month billing inquiry in the Canquest CSR queue?',
-      options: [
-        {
-          id: 'ca2-opt-a',
-          text: 'Warmly greet Chloe, verify her account, and clearly explain the one-time activation proration breakdown: the bill covers the partial first week ($14) plus the upcoming regular monthly advance cycle ($65) and taxes.',
-          rating: 'best',
-          points: 100,
-          customerReaction: '"Oh! That makes total sense now—it covers the first 8 days plus next month. I was worried there was a permanent price hike!"',
-          reason: 'Transparent mathematical breakdown reassures the customer and removes anxiety regarding ongoing rates.',
-          nextStepId: 'can-scen-2-step2'
-        },
-        {
-          id: 'ca2-opt-b',
-          text: 'Tell her that bills are automated and cannot be explained over chat.',
-          rating: 'poor',
-          points: 0,
-          customerReaction: '"If you can’t explain your own charges, why should I trust this company?"',
-          reason: 'Refusing transparency causes severe customer dissatisfaction and escalations.',
-          nextStepId: 'can-scen-2-step2'
-        }
-      ]
-    },
-    secondSteps: {
-      'can-scen-2-step2': {
-        prompt: 'Chloe understands the proration and asks if there is an easy way to automate payments and save money going forward. How do you respond?',
-        options: [
-          {
-            id: 'ca2-s2-best',
-            text: 'Assist her with setting up Auto-Pay via the Canquest mobile app, which applies a recurring $5/mo digital discount and sends monthly receipt statements directly to her email.',
-            rating: 'best',
-            points: 100,
-            customerReaction: '"Setting up auto-pay cuts my bill to $60/mo? Done! Thank you so much for the thorough help today!"',
-            reason: 'Multi-skill service excellence: resolves the question, enrolls customer in auto-pay, lowers ongoing cost, and prevents future delinquent payments.'
-          },
-          {
-            id: 'ca2-s2-acc',
-            text: 'Tell her she can mail a check each month if she prefers.',
-            rating: 'acceptable',
-            points: 50,
-            customerReaction: '"Nobody uses checks anymore, but thanks anyway."',
-            reason: 'Misses modern self-service options and customer retention benefits.'
-          }
-        ]
-      }
-    },
-    idealPath: 'Option A (CSR Explanation: transparent itemized proration breakdown) → Step 2 Best (Account Alignment: enroll in Auto-Pay for $5/mo digital discount).',
-    takeaway: 'First-bill confusion is common in multi-skill queues; clear proration explanations and auto-pay enrollment turn confusion into lasting customer satisfaction.'
+    idealPath: 'Option A (Discover family lineup and account equity) → Step 2 Best (Combine multi-line savings + trade-in equity for zero net change) → Step 3 Best (Provide seamless wireless migration roadmap, guarantee uninterrupted service, and self-paced activation).',
+    takeaway: 'Leverage multi-line scale to offset device costs, and remove customer friction by guaranteeing uninterrupted service and simple device migration.'
   }
 ];
 

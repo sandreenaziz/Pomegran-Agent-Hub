@@ -276,7 +276,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                       <Users2 className="w-6 h-6" />
                     </div>
                     <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-50/90 text-blue-700 border border-blue-200 backdrop-blur-xs shadow-2xs">
-                      15 Scenarios
+                      6 Core Scenarios
                     </span>
                   </div>
 

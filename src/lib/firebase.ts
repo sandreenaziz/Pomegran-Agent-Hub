@@ -69,7 +69,21 @@ export function handleFirestoreError(error: unknown, operationType: OperationTyp
   throw new Error(JSON.stringify(errInfo));
 }
 
+export function isFirebaseConfigured(): boolean {
+  return Boolean(
+    firebaseConfig.apiKey &&
+    !firebaseConfig.apiKey.includes('DemoKey') &&
+    firebaseConfig.projectId &&
+    !firebaseConfig.projectId.includes('pomegran-agent-hub')
+  );
+}
+
 export async function testConnection(): Promise<boolean> {
+  // If running with local demo or placeholder config, do not hit remote Firestore to avoid backend unavailable errors
+  if (!isFirebaseConfigured()) {
+    return false;
+  }
+
   try {
     await getDocFromServer(doc(db, 'test', 'connection'));
     return true;
