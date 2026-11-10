@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Flame,
   Users2,
@@ -7,6 +7,11 @@ import {
   ArrowRight,
   HelpCircle,
   Sparkles,
+  AlertOctagon,
+  X,
+  Bell,
+  Wrench,
+  ChevronRight,
 } from 'lucide-react';
 import { LOBS, LobConfig, LobId, SETTINGS, VIDEO_CATEGORIES } from '../data/content';
 import { GlobalSearchBar } from './GlobalSearchBar';
@@ -18,14 +23,34 @@ import scenariosBg from '../assets/images/box_scenarios_bg_1793033569484.jpg';
 import softSkillsBg from '../assets/images/box_softskills_bg_1793033571209.jpg';
 import videosBg from '../assets/images/box_videos_bg_1793033571091.jpg';
 
-import { VideoCategoryBoxes } from './VideoCategoryBoxes';
-
 export type ModuleType =
   | 'hot-topics'
   | 'scenarios'
   | 'soft-skills'
   | 'videos'
   | 'ask-trainer';
+
+export interface UrgentAnnouncement {
+  id: string;
+  type: 'urgent-policy' | 'maintenance' | 'info';
+  title: string;
+  message: string;
+  effectiveDate?: string;
+  actionLabel?: string;
+  actionModule?: ModuleType;
+}
+
+const ACTIVE_ANNOUNCEMENT: UrgentAnnouncement = {
+  id: 'announcement_policy_oct_2026',
+  type: 'urgent-policy',
+  title: 'Urgent Policy Update · All Queues',
+  message: 'Fiber optic escalation criteria and cancellation retention guidelines have been updated for Q4 2026. Please review hot topics before your shift.',
+  effectiveDate: 'Effective immediately',
+  actionLabel: 'Review Hot Topics',
+  actionModule: 'hot-topics',
+};
+
+const DISMISSED_BANNER_KEY = 'pomegran_dismissed_banner_id';
 
 interface HomeViewProps {
   onSelectLob: (lob: LobConfig, targetModule?: ModuleType) => void;
@@ -46,8 +71,88 @@ export const HomeView: React.FC<HomeViewProps> = ({
   onOpenTrainer,
   onSelectSearchResult,
 }) => {
+  const [isBannerDismissed, setIsBannerDismissed] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem(DISMISSED_BANNER_KEY) === ACTIVE_ANNOUNCEMENT.id;
+    } catch {
+      return false;
+    }
+  });
+
+  const handleDismissBanner = () => {
+    setIsBannerDismissed(true);
+    try {
+      localStorage.setItem(DISMISSED_BANNER_KEY, ACTIVE_ANNOUNCEMENT.id);
+    } catch (e) {
+      console.error('Failed to save dismissed banner', e);
+    }
+  };
+
+  const handleBannerAction = () => {
+    if (ACTIVE_ANNOUNCEMENT.actionModule === 'hot-topics') {
+      onSelectHotTopics();
+    } else if (ACTIVE_ANNOUNCEMENT.actionModule) {
+      onOpenModule?.(ACTIVE_ANNOUNCEMENT.actionModule, lastLobId || 'csr');
+    }
+  };
+
   return (
     <div className="min-h-[calc(100vh-4rem)] flex flex-col justify-between">
+      {/* Top Urgent Policy & Maintenance Announcement Banner */}
+      {!isBannerDismissed && (
+        <aside
+          aria-label="Urgent Announcement"
+          className="bg-gradient-to-r from-amber-500 via-amber-600 to-rose-600 text-white shadow-md border-b border-amber-600/40 sticky top-16 z-30 animate-fadeIn"
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-start sm:items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-black/15 flex items-center justify-center shrink-0 mt-0.5 sm:mt-0 ring-1 ring-white/20">
+                  <AlertOctagon className="w-4 h-4 text-white" />
+                </div>
+                <div className="text-xs sm:text-sm">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-extrabold tracking-wide uppercase text-[11px] px-2 py-0.5 rounded-md bg-black/25 text-amber-100">
+                      {ACTIVE_ANNOUNCEMENT.title}
+                    </span>
+                    {ACTIVE_ANNOUNCEMENT.effectiveDate && (
+                      <span className="text-[11px] font-medium text-amber-100/90 hidden sm:inline">
+                        · {ACTIVE_ANNOUNCEMENT.effectiveDate}
+                      </span>
+                    )}
+                  </div>
+                  <p className="mt-0.5 text-white/95 leading-snug">
+                    {ACTIVE_ANNOUNCEMENT.message}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0 self-end sm:self-center pl-11 sm:pl-0">
+                {ACTIVE_ANNOUNCEMENT.actionLabel && (
+                  <button
+                    type="button"
+                    onClick={handleBannerAction}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white text-stone-900 hover:bg-stone-100 font-bold text-xs shadow-xs transition-colors cursor-pointer"
+                  >
+                    <span>{ACTIVE_ANNOUNCEMENT.actionLabel}</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={handleDismissBanner}
+                  aria-label="Dismiss announcement"
+                  title="Dismiss announcement"
+                  className="p-1.5 rounded-lg bg-black/15 hover:bg-black/30 text-white transition-colors cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </aside>
+      )}
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
         {/* Welcome Hero with Official Pomegran Brand */}
         <div className="text-center max-w-3xl mx-auto mb-12">
@@ -308,37 +413,6 @@ export const HomeView: React.FC<HomeViewProps> = ({
               </button>
             </div>
           </div>
-        </section>
-
-        {/* MICROLEARNING VIDEO CATEGORIES SECTION ON HOME */}
-        <section className="mb-14">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6 pb-3 border-b border-stone-200">
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 border border-purple-200 text-purple-700 text-xs font-bold mb-2">
-                <Video className="w-3.5 h-3.5" />
-                <span>MICROLEARNING VIDEO LIBRARY</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-950 tracking-tight">
-                Microlearning Video Categories
-              </h2>
-              <p className="text-sm text-stone-600 mt-1">
-                Explore bite-sized video lessons by subject category. Click any category box below to watch the videos inside.
-              </p>
-            </div>
-            <div className="text-xs text-stone-500 font-semibold bg-stone-100 px-3 py-1.5 rounded-lg shrink-0">
-              {VIDEO_CATEGORIES.length} Categories Available
-            </div>
-          </div>
-
-          <VideoCategoryBoxes
-            onSelectCategory={(catName) => {
-              if (onOpenVideoCategory) {
-                onOpenVideoCategory(catName);
-              } else {
-                onOpenModule?.('videos', lastLobId || 'csr');
-              }
-            }}
-          />
         </section>
       </div>
 
